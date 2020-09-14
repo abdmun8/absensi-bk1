@@ -1,0 +1,12 @@
+1. absensi smk Bina Karya 1 Karya Karawang 
+- absensi Guru Masuk sekolah (Kerja)
+- absensi Guru Masuk Kelas 
+- Surat Ijin sakit, Dinas & Cuti uploud bukti 
+    - format form cuti 
+- Jadwal Pelajaran Eskul
+-report guru
+- Tampilin dasboard absensi  = 
+- grafik guru 
+
+2. absensi siswa
+-report absensi siswa 
