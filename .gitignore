@@ -5,3 +5,5 @@ yarn.lock
 composer.lock.json
 admin/application/config/config.php
 admin/application/config/database.php
+backend/index.php
+backend/api/config.php
