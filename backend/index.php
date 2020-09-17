@@ -6,6 +6,6 @@ error_reporting(0);
 session_start();
 // define constant
 define("APP", "clustering-kmeans");
-define("BASE_URL", "http://project.local/absensi-bk1/backend/");
+define("BASE_URL", "http://localhost/absensi-bk1/backend/");
 // required file
 require_once('api/index.php');
