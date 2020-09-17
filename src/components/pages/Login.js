@@ -16,6 +16,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../utils/JWTAuth";
+import { req } from "../../utils/request";
 
 const DevelovedBy = () => {
   return (
@@ -28,57 +29,63 @@ const DevelovedBy = () => {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white
-    }
+      backgroundColor: theme.palette.common.white,
+    },
   },
   paper: {
     marginTop: theme.spacing(6),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: "#661FFF",
-    borderRadius: 25
+    borderRadius: 25,
   },
   logo: {
     width: "10em",
     height: "auto",
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
   },
   btnPrimary: {
-    backgroundColor: "#661FFF"
+    backgroundColor: "#661FFF",
   },
   snackbar: {
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function Login() {
   const classes = useStyles();
-  const [userName, setUserName] = useState("");
+  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [fieldError, setFieldError] = useState({
+    username: false,
+    password: false,
+  });
   const [snackBarState, setSnackBarState] = useState({
     open: false,
     vertical: "top",
-    horizontal: "center"
+    horizontal: "center",
   });
   const [state, setState] = useState({
-    urlOutside: false
+    urlOutside: false,
   });
-  let loggedIn = useSelector(state => state.loggedIn);
+  let loggedIn = useSelector((state) => state.loggedIn);
   const dispatch = useDispatch();
 
   const handleSnackbarClose = () => {
@@ -89,26 +96,47 @@ export default function Login() {
     setSnackBarState({ ...snackBarState, open: false });
   };
 
-  // console.log(state);
+  console.log(fieldError);
+  console.log(loginForm);
 
   const doLogin = async () => {
-    let info = {
-      u: userName,
-      p: password
-    };
+    setIsSubmit(true);
+    let countError = 0;
+    let errors = {};
+    Object.entries(fieldError).forEach((item) => {
+      if (loginForm[item[0]] === "") {
+        errors[item[0]] = true;
+        countError++;
+      } else {
+        errors[item[0]] = false;
+      }
+    });
+    setFieldError(errors);
 
-    let response = await login(info);
-    if (response && response.success) {
-      // alert(2)
-      dispatch({ type: "SET_CURRENT_USER", payload: response.data });
-      dispatch({ type: "TOGGLE_LOGIN", payload: loggedIn });
-      dispatch({
-        type: "SET_MENU",
-        payload: state.urlOutside ? menuOutside : menuInside
-      });
-    } else {
-      alert("Username/Password Salah!");
+    if (countError > 0) {
+      return;
     }
+
+    req({ data: loginForm, method: "POST", url: "/" })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // let response = await login(info);
+    // if (response && response.success) {
+    //   // alert(2)
+    //   dispatch({ type: "SET_CURRENT_USER", payload: response.data });
+    //   dispatch({ type: "TOGGLE_LOGIN", payload: loggedIn });
+    //   dispatch({
+    //     type: "SET_MENU",
+    //     payload: state.urlOutside ? menuOutside : menuInside,
+    //   });
+    // } else {
+    //   alert("Username/Password Salah!");
+    // }
     // alert(1)
   };
 
@@ -118,15 +146,15 @@ export default function Login() {
       link: "/report",
       title: "Izin",
       icon: "edit_attributes",
-      iconColor: "red"
+      iconColor: "red",
     },
     {
       idMenu: 2,
       link: "/jadwal-guru",
       title: "Jadwal",
       icon: "insert_invitation",
-      iconColor: "red"
-    }
+      iconColor: "red",
+    },
   ];
 
   const menuInside = [
@@ -135,41 +163,41 @@ export default function Login() {
       link: "/absensi-guru",
       title: "Absensi Guru",
       icon: "person",
-      iconColor: "red"
+      iconColor: "red",
     },
     {
       idMenu: 2,
       link: "/kelas",
       title: "Absensi Siswa",
       icon: "people",
-      iconColor: "red"
+      iconColor: "red",
     },
     {
       idMenu: 3,
       link: "/report",
       title: "Ekskul",
       icon: "local_play",
-      iconColor: "red"
+      iconColor: "red",
     },
     {
       idMenu: 4,
       link: "/report",
       title: "Izin",
       icon: "edit_attributes",
-      iconColor: "red"
+      iconColor: "red",
     },
     {
       idMenu: 5,
       link: "/jadwal-guru",
       title: "Jadwal",
       icon: "insert_invitation",
-      iconColor: "red"
-    }
+      iconColor: "red",
+    },
   ];
 
   const { vertical, horizontal, open } = snackBarState;
 
-  const handleChange = name => event => {
+  const handleChange = (name) => (event) => {
     setState({ ...state, [name]: event.target.checked });
     let menus = event.target.checked ? menuOutside : menuInside;
     dispatch({ type: "SET_MENU", payload: menus });
@@ -191,7 +219,7 @@ export default function Login() {
         onClose={handleSnackbarClose}
         TransitionComponent={Slide}
         ContentProps={{
-          "aria-describedby": "message-id"
+          "aria-describedby": "message-id",
         }}
         message={<span id="message-id">Login Success</span>}
       />
@@ -205,10 +233,13 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
+            error={isSubmit && fieldError.username ? true : false}
             id="username"
             label="Username"
             name="username"
-            onChange={e => setUserName(e.target.value)}
+            onChange={(e) =>
+              setLoginForm({ ...loginForm, username: e.target.value })
+            }
             autoComplete="username"
             autoFocus
           />
@@ -217,11 +248,14 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
+            error={isSubmit && fieldError.password ? true : false}
             name="password"
             label="Password"
             type="password"
             id="password"
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) =>
+              setLoginForm({ ...loginForm, password: e.target.value })
+            }
             autoComplete="current-password"
           />
           <FormControlLabel

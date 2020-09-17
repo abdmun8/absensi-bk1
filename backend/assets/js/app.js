@@ -1,5 +1,5 @@
 var halaman = "";
-var menuActive = "Siswa";
+var menuActive = "siswa";
 
 $(document).ready(function () {
   init();
@@ -16,7 +16,7 @@ function init() {
     .children()
     .each(function (index, item) {
       item.addEventListener("click", function () {
-        let textMenu = this.children[0].innerHTML;
+        let textMenu = this.children[0].dataset.menu;
         changeMenu(textMenu);
       });
     });
@@ -46,7 +46,7 @@ function changeMenu(currentMenu = "Siswa") {
   $("#header-menu")
     .children()
     .each((index, item) => {
-      let textMenu = item.children[0].innerHTML;
+      let textMenu = item.children[0].dataset.menu;
       if (textMenu == menuActive) {
         item.classList.remove("active");
       }
@@ -56,17 +56,6 @@ function changeMenu(currentMenu = "Siswa") {
       }
     });
   menuActive = currentMenu;
-  switch (currentMenu) {
-    case "Nilai Kelas":
-      currentMenu = "nilai_kelas";
-      break;
-    case "Nilai Siswa":
-      currentMenu = "nilai_siswa";
-      break;
-    case "Cluster Data Siswa":
-      currentMenu = "clustering";
-      break;
-  }
   loadPage(currentMenu.toLowerCase() + "/data");
 }
 

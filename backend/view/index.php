@@ -21,17 +21,10 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="header-menu">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Siswa</a>
+                    <a class="nav-link" data-menu="siswa" href="#">Siswa</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nilai Kelas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Nilai Siswa</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Cluster Data Siswa</a>
+                    <a class="nav-link" data-menu="guru" href="#">Data Guru</a>
                 </li>
             </ul>
             <div class="">

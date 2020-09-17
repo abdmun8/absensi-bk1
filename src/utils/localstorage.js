@@ -1,6 +1,22 @@
+export const getItem = async (key) =>
+  new Promise((resolve, reject) => {
+    localStorage
+      .getItem(key)
+      .then((res) => resolve(res.JSON()))
+      .catch(reject(undefined));
+  });
+
+export const getItem = async (key, data) =>
+  new Promise((resolve, reject) => {
+    localStorage
+      .setItem(key, JSON.stringify(data))
+      .then(() => resolve(true))
+      .catch(reject(false));
+  });
+
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = localStorage.getItem("state");
     if (serializedState === null) {
       return undefined;
     }
@@ -13,7 +29,7 @@ export const loadState = () => {
 export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
+    localStorage.setItem("state", serializedState);
   } catch {
     // ignore write errors
   }

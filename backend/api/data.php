@@ -146,21 +146,6 @@ function getData()
     $success = TRUE;
     $sql = "";
     switch ($_GET['table']) {
-        case 'nilai_siswa':
-            if (isset($_GET['row'])) {
-                $sql = "SELECT a.*,b.nama ,b.nisn
-                        FROM {$_GET['table']} a 
-                        LEFT JOIN siswa b ON a.id_siswa = b.id
-                        WHERE a.id='{$_GET['id']}'";
-                $data = select($sql, TRUE);
-            } else {
-                $data = $sql = "SELECT a.*,b.nama,b.nisn
-                        FROM {$_GET['table']} a 
-                        LEFT JOIN siswa b ON a.id_siswa = b.id";
-                $data = select($sql);
-            }
-            break;
-
         default:
             if (isset($_GET['row'])) {
                 $sql = "SELECT * FROM {$_GET['table']} 
