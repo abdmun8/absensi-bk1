@@ -34,7 +34,7 @@
         // param
         var params = {
             action: 'data',
-            table: 'jadwal_sekolah'
+            table: 'v_jadwal_sekolah'
         };
         // qs object
         var qs = objectToQueryString(params);
@@ -68,7 +68,7 @@
                     data: 'keterangan'
                 },
                 {
-                    data: 'tipe_libur'
+                    data: 'nama_libur'
                 },
                 {
                     data: 'id',

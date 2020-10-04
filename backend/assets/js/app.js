@@ -42,6 +42,7 @@ function loadPage(page = "siswa/data", param = null) {
  * @param {string} currentMenu menu text that want to highlight
  */
 function changeMenu(currentMenu = "Siswa") {
+  // toggleMenu();
   if (currentMenu == menuActive) return;
   $("#header-menu")
     .children()
@@ -237,4 +238,12 @@ function loader(show = true) {
   } else {
     $("#backdrop-loader").modal("hide");
   }
+}
+
+/**
+ * toggle menu
+ */
+function toggleMenu() {
+  var currentWidth = !menuShow ? "0px" : "280px";
+  $(".sidebar-container").style("left", currentWidth);
 }
