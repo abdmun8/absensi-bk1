@@ -15,7 +15,7 @@
         <div class="login-form-container px-4 pt-3 pb-4">
             <div class="image-wrapper">
                 <img src="./assets/logo.png" class="logo" />
-                <h5 class="text-center mt-2">SMKN BINA KARYA 1 KARAWANG</h5>
+                <h5 class="text-center mt-2">SMK BINA KARYA 1 KARAWANG</h5>
             </div>
             <?php
             if (isset($_SESSION['login_gagal'])) {

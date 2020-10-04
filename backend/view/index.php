@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMKN BINA KARYA 1 KARAWANG</title>
+    <title>SMK BINA KARYA 1 KARAWANG</title>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/dataTables.bootstrap4.min.css" />
@@ -26,6 +26,28 @@
                 <li class="nav-item">
                     <a class="nav-link" data-menu="guru" href="#">Data Guru</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="kelas" href="#">Data Kelas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="tipe_sub_kelas" href="#">Data Sub Kelas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="sub_kelas" href="#">Data Tipe Sub Kelas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="pic_eksternal" href="#">Data PIC Eksternal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="ekskul" href="#">Data Ekskul</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="mata_pelajaran" href="#">Data Mata Pelajaran</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="jadwal_sekolah" href="#">Data Jadwal Sekolah</a>
+                </li>
+
             </ul>
             <div class="">
                 <span class="nav-item user-text"><?= $_SESSION['nama'] ?></span>

@@ -39,14 +39,6 @@
                     <label>Tanggal Lahir</label>
                     <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Tanggal Lahir">
                 </div>
-                <div class="form-group col-md-6">
-                    <label>Pendidikan</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="username">
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Tanggal Join</label>
-                    <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Tanggal Lahir">
-                </div>
             </div>
             <button type="button" class="btn btn-primary float-right" onclick="simpan()">Simpan</button>
             <button type="button" class="btn btn-warning mx-1 float-right" onclick="resetForm()">Reset</button>
@@ -55,19 +47,9 @@
 </div>
 <script>
     // set required form
-    var required = ['nik', 'nama', 'username', 'password', 'jenis_kelamin', 'alamat', 'tgl_lahir', 'pendidikan', 'tgl_join'];
+    var required = ['nik', 'nama', 'username', 'password', 'jenis_kelamin', 'alamat', 'tgl_lahir'];
     // load option
-    req(base_url, 'GET', {
-        table: 'guru',
-        action: 'data'
-    }).then(res => {
-        $('#id').children().not(':first').remove();
-        res.data.forEach(function(item) {
-            $('#id').append(`<option value="${item.id}">${item.nik} - ${item.nama}</option>`);
-        });
-        // load data if parameter id exist
-        //<?= isset($_GET['id']) ? "getDataById('guru', '{$_GET['id']}');" : ''; ?>
-    }).catch(err => console.log(err));
+    <?= isset($_GET['id']) ? "getDataById('guru', '{$_GET['id']}');" : ''; ?>
 
     /**
      * back to previous page
