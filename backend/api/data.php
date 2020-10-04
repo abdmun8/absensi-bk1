@@ -10,6 +10,8 @@ function login()
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    // var_dump($sql);
+    // die;
     if ($stmt->rowCount() > 0) {
         $_SESSION['username'] = $data['username'];
         $_SESSION['nama'] = $data['name'];

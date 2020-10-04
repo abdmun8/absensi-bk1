@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
+-- MariaDB dump 10.17  Distrib 10.4.14-MariaDB, for osx10.10 (x86_64)
 --
 -- Host: localhost    Database: absensi_siswa
 -- ------------------------------------------------------
--- Server version	5.7.27-0ubuntu0.18.04.1
+-- Server version	10.4.14-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -37,7 +37,7 @@ CREATE TABLE `absensi` (
   `id_jadwal` int(11) NOT NULL,
   `trx_date` datetime NOT NULL,
   `id_siswa` int(11) NOT NULL,
-  `value` tinyint(1) NOT NULL DEFAULT '1',
+  `value` tinyint(1) NOT NULL DEFAULT 1,
   `keterangan` enum('S','I','A') DEFAULT 'I',
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
@@ -76,8 +76,8 @@ CREATE TABLE `absensi_guru` (
   `tanggal` date NOT NULL,
   `jam_masuk` datetime DEFAULT NULL,
   `jam_pulang` datetime DEFAULT NULL,
-  `keterangan` text,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `keterangan` text DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_guru`,`tanggal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -102,9 +102,9 @@ DROP TABLE IF EXISTS `current_active`;
 CREATE TABLE `current_active` (
   `id_user` int(11) NOT NULL,
   `id_kelas` int(11) DEFAULT NULL,
-  `is_checked_in` tinyint(4) DEFAULT '0',
-  `is_in_class` tinyint(4) DEFAULT '0',
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_checked_in` tinyint(4) DEFAULT 0,
+  `is_in_class` tinyint(4) DEFAULT 0,
+  `timestamp` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -128,8 +128,8 @@ DROP TABLE IF EXISTS `ekskul`;
 CREATE TABLE `ekskul` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama_ekskul` varchar(50) DEFAULT NULL,
-  `keterangan` text,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `keterangan` text DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL,
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -165,12 +165,12 @@ CREATE TABLE `guru` (
   `tgl_lahir` date NOT NULL,
   `pendidikan` varchar(100) NOT NULL,
   `tgl_join` date NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `nik` (`nik`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
@@ -203,12 +203,12 @@ CREATE TABLE `jadwal_pelajaran` (
   `id_matpel` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_guru` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `id_matpel` (`id_matpel`),
   KEY `id_kelas` (`id_kelas`),
@@ -241,14 +241,14 @@ CREATE TABLE `jadwal_sekolah` (
   `tahun_ajaran` varchar(50) NOT NULL,
   `semester` enum('Ganjil','Genap') NOT NULL,
   `tgl_libur` date DEFAULT NULL,
-  `keterangan` text,
+  `keterangan` text DEFAULT NULL,
   `tipe_libur` int(11) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `timestamp` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,6 +257,7 @@ CREATE TABLE `jadwal_sekolah` (
 
 LOCK TABLES `jadwal_sekolah` WRITE;
 /*!40000 ALTER TABLE `jadwal_sekolah` DISABLE KEYS */;
+INSERT INTO `jadwal_sekolah` VALUES (1,'2020/2021','Ganjil','2020-01-01','Tahun Baru 2020 Masehi',2,NULL,NULL,NULL,'2020-10-04 07:21:51'),(2,'2020/2021','Ganjil','2020-01-25','Tahun Baru Imlek 2571 Kongzili',2,NULL,NULL,NULL,'2020-10-04 07:21:34');
 /*!40000 ALTER TABLE `jadwal_sekolah` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +273,7 @@ CREATE TABLE `kelas` (
   `tingkat` int(11) NOT NULL,
   `nama_kelas` varchar(50) NOT NULL,
   `deskripsi` text NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL,
@@ -302,7 +303,7 @@ CREATE TABLE `level` (
   `level_id` int(11) NOT NULL AUTO_INCREMENT,
   `level_name` varchar(50) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`level_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -329,12 +330,12 @@ CREATE TABLE `mata_pelajaran` (
   `nama` varchar(50) NOT NULL,
   `tingkat` int(2) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `nama` (`nama`),
   KEY `tingkat` (`tingkat`)
@@ -402,7 +403,7 @@ CREATE TABLE `pic_eksternal` (
   `created_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `timestamp` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -430,7 +431,7 @@ CREATE TABLE `setting` (
   `semester` enum('Ganjil','Genap') NOT NULL DEFAULT 'Ganjil',
   `nama_sekolah` varchar(100) NOT NULL,
   `kepala_sekolah` varchar(100) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `tahun_ajaran` (`tahun_ajaran`),
   KEY `semester` (`semester`)
@@ -463,7 +464,7 @@ CREATE TABLE `siswa` (
   `tgl_lahir` date NOT NULL,
   `alamat` text NOT NULL,
   `id_kelas` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL,
@@ -499,11 +500,11 @@ CREATE TABLE `sub_kelas` (
   `wali_kelas` int(11) DEFAULT NULL,
   `pic` int(11) DEFAULT NULL,
   `tipe_id` int(11) DEFAULT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT '1',
+  `active` tinyint(4) NOT NULL DEFAULT 1,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `timestamp` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -528,8 +529,8 @@ DROP TABLE IF EXISTS `tipe_libur`;
 CREATE TABLE `tipe_libur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama_libur` varchar(50) DEFAULT NULL,
-  `keterangan` text,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `keterangan` text DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -557,8 +558,8 @@ DROP TABLE IF EXISTS `tipe_sub_kelas`;
 CREATE TABLE `tipe_sub_kelas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipe` varchar(50) DEFAULT NULL,
-  `keterangan` text,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `keterangan` text DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -590,7 +591,7 @@ CREATE TABLE `user` (
   `email` varchar(200) NOT NULL,
   `level` varchar(10) DEFAULT 'admin',
   `password` varchar(32) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
   KEY `level_id` (`level`)
@@ -615,23 +616,47 @@ DROP TABLE IF EXISTS `v_jadwal_pelajaran`;
 /*!50001 DROP VIEW IF EXISTS `v_jadwal_pelajaran`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_jadwal_pelajaran` AS SELECT 
- 1 AS `id`,
- 1 AS `hari`,
- 1 AS `jam`,
- 1 AS `jumlah_jam`,
- 1 AS `id_matpel`,
- 1 AS `id_kelas`,
- 1 AS `id_guru`,
- 1 AS `active`,
- 1 AS `created_by`,
- 1 AS `created_at`,
- 1 AS `updated_by`,
- 1 AS `updated_at`,
- 1 AS `timestamp`,
- 1 AS `kelas`,
- 1 AS `mata_pelajaran`,
- 1 AS `nama_guru`*/;
+/*!50001 CREATE TABLE `v_jadwal_pelajaran` (
+  `id` tinyint NOT NULL,
+  `hari` tinyint NOT NULL,
+  `jam` tinyint NOT NULL,
+  `jumlah_jam` tinyint NOT NULL,
+  `id_matpel` tinyint NOT NULL,
+  `id_kelas` tinyint NOT NULL,
+  `id_guru` tinyint NOT NULL,
+  `active` tinyint NOT NULL,
+  `created_by` tinyint NOT NULL,
+  `created_at` tinyint NOT NULL,
+  `updated_by` tinyint NOT NULL,
+  `updated_at` tinyint NOT NULL,
+  `timestamp` tinyint NOT NULL,
+  `kelas` tinyint NOT NULL,
+  `mata_pelajaran` tinyint NOT NULL,
+  `nama_guru` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `v_jadwal_sekolah`
+--
+
+DROP TABLE IF EXISTS `v_jadwal_sekolah`;
+/*!50001 DROP VIEW IF EXISTS `v_jadwal_sekolah`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `v_jadwal_sekolah` (
+  `id` tinyint NOT NULL,
+  `tahun_ajaran` tinyint NOT NULL,
+  `semester` tinyint NOT NULL,
+  `tgl_libur` tinyint NOT NULL,
+  `keterangan` tinyint NOT NULL,
+  `tipe_libur` tinyint NOT NULL,
+  `created_by` tinyint NOT NULL,
+  `created_at` tinyint NOT NULL,
+  `updated_by` tinyint NOT NULL,
+  `timestamp` tinyint NOT NULL,
+  `nama_libur` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -642,21 +667,22 @@ DROP TABLE IF EXISTS `v_siswa`;
 /*!50001 DROP VIEW IF EXISTS `v_siswa`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_siswa` AS SELECT 
- 1 AS `id`,
- 1 AS `nis`,
- 1 AS `nisn`,
- 1 AS `nama`,
- 1 AS `jenis_kelamin`,
- 1 AS `tgl_lahir`,
- 1 AS `alamat`,
- 1 AS `id_kelas`,
- 1 AS `active`,
- 1 AS `created_by`,
- 1 AS `created_at`,
- 1 AS `updated_by`,
- 1 AS `updated_at`,
- 1 AS `kelas`*/;
+/*!50001 CREATE TABLE `v_siswa` (
+  `id` tinyint NOT NULL,
+  `nis` tinyint NOT NULL,
+  `nisn` tinyint NOT NULL,
+  `nama` tinyint NOT NULL,
+  `jenis_kelamin` tinyint NOT NULL,
+  `tgl_lahir` tinyint NOT NULL,
+  `alamat` tinyint NOT NULL,
+  `id_kelas` tinyint NOT NULL,
+  `active` tinyint NOT NULL,
+  `created_by` tinyint NOT NULL,
+  `created_at` tinyint NOT NULL,
+  `updated_by` tinyint NOT NULL,
+  `updated_at` tinyint NOT NULL,
+  `kelas` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -667,22 +693,23 @@ DROP TABLE IF EXISTS `v_sub_kelas`;
 /*!50001 DROP VIEW IF EXISTS `v_sub_kelas`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_sub_kelas` AS SELECT 
- 1 AS `id`,
- 1 AS `tingkat`,
- 1 AS `nama_kelas`,
- 1 AS `deskripsi`,
- 1 AS `wali_kelas`,
- 1 AS `pic`,
- 1 AS `tipe_id`,
- 1 AS `active`,
- 1 AS `created_by`,
- 1 AS `created_at`,
- 1 AS `updated_by`,
- 1 AS `timestamp`,
- 1 AS `nama_guru`,
- 1 AS `tipe`,
- 1 AS `nama_pic_eksternal`*/;
+/*!50001 CREATE TABLE `v_sub_kelas` (
+  `id` tinyint NOT NULL,
+  `tingkat` tinyint NOT NULL,
+  `nama_kelas` tinyint NOT NULL,
+  `deskripsi` tinyint NOT NULL,
+  `wali_kelas` tinyint NOT NULL,
+  `pic` tinyint NOT NULL,
+  `tipe_id` tinyint NOT NULL,
+  `active` tinyint NOT NULL,
+  `created_by` tinyint NOT NULL,
+  `created_at` tinyint NOT NULL,
+  `updated_by` tinyint NOT NULL,
+  `timestamp` tinyint NOT NULL,
+  `nama_guru` tinyint NOT NULL,
+  `tipe` tinyint NOT NULL,
+  `nama_pic_eksternal` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -693,13 +720,14 @@ DROP TABLE IF EXISTS `v_user`;
 /*!50001 DROP VIEW IF EXISTS `v_user`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_user` AS SELECT 
- 1 AS `user_id`,
- 1 AS `name`,
- 1 AS `username`,
- 1 AS `password`,
- 1 AS `level`,
- 1 AS `id_siswa`*/;
+/*!50001 CREATE TABLE `v_user` (
+  `user_id` tinyint NOT NULL,
+  `name` tinyint NOT NULL,
+  `username` tinyint NOT NULL,
+  `password` tinyint NOT NULL,
+  `level` tinyint NOT NULL,
+  `id_siswa` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -710,22 +738,23 @@ DROP TABLE IF EXISTS `v_wali_murid`;
 /*!50001 DROP VIEW IF EXISTS `v_wali_murid`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `v_wali_murid` AS SELECT 
- 1 AS `id`,
- 1 AS `nama`,
- 1 AS `id_siswa`,
- 1 AS `nama_siswa`,
- 1 AS `nama_kelas`,
- 1 AS `no_hp`,
- 1 AS `alamat`,
- 1 AS `jenis_kelamin`,
- 1 AS `active`,
- 1 AS `username`,
- 1 AS `created_by`,
- 1 AS `created_at`,
- 1 AS `updated_by`,
- 1 AS `updated_at`,
- 1 AS `timestamp`*/;
+/*!50001 CREATE TABLE `v_wali_murid` (
+  `id` tinyint NOT NULL,
+  `nama` tinyint NOT NULL,
+  `id_siswa` tinyint NOT NULL,
+  `nama_siswa` tinyint NOT NULL,
+  `nama_kelas` tinyint NOT NULL,
+  `no_hp` tinyint NOT NULL,
+  `alamat` tinyint NOT NULL,
+  `jenis_kelamin` tinyint NOT NULL,
+  `active` tinyint NOT NULL,
+  `username` tinyint NOT NULL,
+  `created_by` tinyint NOT NULL,
+  `created_at` tinyint NOT NULL,
+  `updated_by` tinyint NOT NULL,
+  `updated_at` tinyint NOT NULL,
+  `timestamp` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -744,12 +773,12 @@ CREATE TABLE `wali_murid` (
   `alamat` varchar(255) NOT NULL,
   `no_hp` varchar(20) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL DEFAULT 'L',
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `created_by` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
   `updated_by` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -774,6 +803,7 @@ USE `absensi_siswa`;
 -- Final view structure for view `v_jadwal_pelajaran`
 --
 
+/*!50001 DROP TABLE IF EXISTS `v_jadwal_pelajaran`*/;
 /*!50001 DROP VIEW IF EXISTS `v_jadwal_pelajaran`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -783,7 +813,26 @@ USE `absensi_siswa`;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_jadwal_pelajaran` AS select `jp`.`id` AS `id`,`jp`.`hari` AS `hari`,`jp`.`jam` AS `jam`,`jp`.`jumlah_jam` AS `jumlah_jam`,`jp`.`id_matpel` AS `id_matpel`,`jp`.`id_kelas` AS `id_kelas`,`jp`.`id_guru` AS `id_guru`,`jp`.`active` AS `active`,`jp`.`created_by` AS `created_by`,`jp`.`created_at` AS `created_at`,`jp`.`updated_by` AS `updated_by`,`jp`.`updated_at` AS `updated_at`,`jp`.`timestamp` AS `timestamp`,concat(`k`.`tingkat`,' ',`k`.`nama_kelas`) AS `kelas`,concat(`mp`.`nama`,' ',`mp`.`tingkat`) AS `mata_pelajaran`,`g`.`nama` AS `nama_guru` from (((`jadwal_pelajaran` `jp` join `kelas` `k` on((`jp`.`id_kelas` = `k`.`id`))) join `mata_pelajaran` `mp` on((`jp`.`id_matpel` = `mp`.`id`))) join `guru` `g` on((`jp`.`id_guru` = `g`.`id`))) */;
+/*!50001 VIEW `v_jadwal_pelajaran` AS select `jp`.`id` AS `id`,`jp`.`hari` AS `hari`,`jp`.`jam` AS `jam`,`jp`.`jumlah_jam` AS `jumlah_jam`,`jp`.`id_matpel` AS `id_matpel`,`jp`.`id_kelas` AS `id_kelas`,`jp`.`id_guru` AS `id_guru`,`jp`.`active` AS `active`,`jp`.`created_by` AS `created_by`,`jp`.`created_at` AS `created_at`,`jp`.`updated_by` AS `updated_by`,`jp`.`updated_at` AS `updated_at`,`jp`.`timestamp` AS `timestamp`,concat(`k`.`tingkat`,' ',`k`.`nama_kelas`) AS `kelas`,concat(`mp`.`nama`,' ',`mp`.`tingkat`) AS `mata_pelajaran`,`g`.`nama` AS `nama_guru` from (((`jadwal_pelajaran` `jp` join `kelas` `k` on(`jp`.`id_kelas` = `k`.`id`)) join `mata_pelajaran` `mp` on(`jp`.`id_matpel` = `mp`.`id`)) join `guru` `g` on(`jp`.`id_guru` = `g`.`id`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_jadwal_sekolah`
+--
+
+/*!50001 DROP TABLE IF EXISTS `v_jadwal_sekolah`*/;
+/*!50001 DROP VIEW IF EXISTS `v_jadwal_sekolah`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_unicode_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_jadwal_sekolah` AS select `js`.`id` AS `id`,`js`.`tahun_ajaran` AS `tahun_ajaran`,`js`.`semester` AS `semester`,`js`.`tgl_libur` AS `tgl_libur`,`js`.`keterangan` AS `keterangan`,`js`.`tipe_libur` AS `tipe_libur`,`js`.`created_by` AS `created_by`,`js`.`created_at` AS `created_at`,`js`.`updated_by` AS `updated_by`,`js`.`timestamp` AS `timestamp`,`tl`.`nama_libur` AS `nama_libur` from (`jadwal_sekolah` `js` join `tipe_libur` `tl` on(`js`.`tipe_libur` = `tl`.`id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -792,6 +841,7 @@ USE `absensi_siswa`;
 -- Final view structure for view `v_siswa`
 --
 
+/*!50001 DROP TABLE IF EXISTS `v_siswa`*/;
 /*!50001 DROP VIEW IF EXISTS `v_siswa`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -801,7 +851,7 @@ USE `absensi_siswa`;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_siswa` AS select `s`.`id` AS `id`,`s`.`nis` AS `nis`,`s`.`nisn` AS `nisn`,`s`.`nama` AS `nama`,`s`.`jenis_kelamin` AS `jenis_kelamin`,`s`.`tgl_lahir` AS `tgl_lahir`,`s`.`alamat` AS `alamat`,`s`.`id_kelas` AS `id_kelas`,`s`.`active` AS `active`,`s`.`created_by` AS `created_by`,`s`.`created_at` AS `created_at`,`s`.`updated_by` AS `updated_by`,`s`.`updated_at` AS `updated_at`,concat(`k`.`tingkat`,' ',`k`.`nama_kelas`) AS `kelas` from (`siswa` `s` join `kelas` `k` on((`s`.`id_kelas` = `k`.`id`))) where ((`s`.`active` = 1) and (`k`.`active` = 1)) */;
+/*!50001 VIEW `v_siswa` AS select `s`.`id` AS `id`,`s`.`nis` AS `nis`,`s`.`nisn` AS `nisn`,`s`.`nama` AS `nama`,`s`.`jenis_kelamin` AS `jenis_kelamin`,`s`.`tgl_lahir` AS `tgl_lahir`,`s`.`alamat` AS `alamat`,`s`.`id_kelas` AS `id_kelas`,`s`.`active` AS `active`,`s`.`created_by` AS `created_by`,`s`.`created_at` AS `created_at`,`s`.`updated_by` AS `updated_by`,`s`.`updated_at` AS `updated_at`,concat(`k`.`tingkat`,' ',`k`.`nama_kelas`) AS `kelas` from (`siswa` `s` join `kelas` `k` on(`s`.`id_kelas` = `k`.`id`)) where `s`.`active` = 1 and `k`.`active` = 1 */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -810,6 +860,7 @@ USE `absensi_siswa`;
 -- Final view structure for view `v_sub_kelas`
 --
 
+/*!50001 DROP TABLE IF EXISTS `v_sub_kelas`*/;
 /*!50001 DROP VIEW IF EXISTS `v_sub_kelas`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -819,7 +870,7 @@ USE `absensi_siswa`;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_sub_kelas` AS select `s`.`id` AS `id`,`s`.`tingkat` AS `tingkat`,`s`.`nama_kelas` AS `nama_kelas`,`s`.`deskripsi` AS `deskripsi`,`s`.`wali_kelas` AS `wali_kelas`,`s`.`pic` AS `pic`,`s`.`tipe_id` AS `tipe_id`,`s`.`active` AS `active`,`s`.`created_by` AS `created_by`,`s`.`created_at` AS `created_at`,`s`.`updated_by` AS `updated_by`,`s`.`timestamp` AS `timestamp`,`g`.`nama` AS `nama_guru`,`t`.`tipe` AS `tipe`,`e`.`nama` AS `nama_pic_eksternal` from (((`sub_kelas` `s` join `tipe_sub_kelas` `t` on((`s`.`tipe_id` = `t`.`id`))) left join `pic_eksternal` `e` on((`s`.`pic` = `e`.`id`))) left join `guru` `g` on((`s`.`wali_kelas` = `g`.`id`))) */;
+/*!50001 VIEW `v_sub_kelas` AS select `s`.`id` AS `id`,`s`.`tingkat` AS `tingkat`,`s`.`nama_kelas` AS `nama_kelas`,`s`.`deskripsi` AS `deskripsi`,`s`.`wali_kelas` AS `wali_kelas`,`s`.`pic` AS `pic`,`s`.`tipe_id` AS `tipe_id`,`s`.`active` AS `active`,`s`.`created_by` AS `created_by`,`s`.`created_at` AS `created_at`,`s`.`updated_by` AS `updated_by`,`s`.`timestamp` AS `timestamp`,`g`.`nama` AS `nama_guru`,`t`.`tipe` AS `tipe`,`e`.`nama` AS `nama_pic_eksternal` from (((`sub_kelas` `s` join `tipe_sub_kelas` `t` on(`s`.`tipe_id` = `t`.`id`)) left join `pic_eksternal` `e` on(`s`.`pic` = `e`.`id`)) left join `guru` `g` on(`s`.`wali_kelas` = `g`.`id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -828,6 +879,7 @@ USE `absensi_siswa`;
 -- Final view structure for view `v_user`
 --
 
+/*!50001 DROP TABLE IF EXISTS `v_user`*/;
 /*!50001 DROP VIEW IF EXISTS `v_user`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -837,7 +889,7 @@ USE `absensi_siswa`;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_user` AS select `user`.`user_id` AS `user_id`,`user`.`name` AS `name`,`user`.`username` AS `username`,`user`.`password` AS `password`,`user`.`level` AS `level`,'' AS `id_siswa` from `user` where (`user`.`is_active` = 1) union select (`guru`.`id` + 1000) AS `user_id`,`guru`.`nama` AS `name`,`guru`.`username` AS `username`,`guru`.`password` AS `password`,'guru' AS `level`,'' AS `id_siswa` from `guru` where (`guru`.`active` = 1) union select (`wali_murid`.`id` + 2000) AS `user_id`,`wali_murid`.`nama` AS `name`,`wali_murid`.`username` AS `username`,`wali_murid`.`password` AS `password`,'wali' AS `level`,`wali_murid`.`id_siswa` AS `id_siswa` from `wali_murid` where (`wali_murid`.`active` = 1) */;
+/*!50001 VIEW `v_user` AS select `user`.`user_id` AS `user_id`,`user`.`name` AS `name`,`user`.`username` AS `username`,`user`.`password` AS `password`,`user`.`level` AS `level`,'' AS `id_siswa` from `user` where `user`.`is_active` = 1 union select `guru`.`id` + 1000 AS `user_id`,`guru`.`nama` AS `name`,`guru`.`username` AS `username`,`guru`.`password` AS `password`,'guru' AS `level`,'' AS `id_siswa` from `guru` where `guru`.`active` = 1 union select `wali_murid`.`id` + 2000 AS `user_id`,`wali_murid`.`nama` AS `name`,`wali_murid`.`username` AS `username`,`wali_murid`.`password` AS `password`,'wali' AS `level`,`wali_murid`.`id_siswa` AS `id_siswa` from `wali_murid` where `wali_murid`.`active` = 1 */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -846,6 +898,7 @@ USE `absensi_siswa`;
 -- Final view structure for view `v_wali_murid`
 --
 
+/*!50001 DROP TABLE IF EXISTS `v_wali_murid`*/;
 /*!50001 DROP VIEW IF EXISTS `v_wali_murid`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -855,7 +908,7 @@ USE `absensi_siswa`;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_wali_murid` AS select `wm`.`id` AS `id`,`wm`.`nama` AS `nama`,`wm`.`id_siswa` AS `id_siswa`,`sw`.`nama` AS `nama_siswa`,concat(`kl`.`tingkat`,' ',`kl`.`nama_kelas`) AS `nama_kelas`,`wm`.`no_hp` AS `no_hp`,`wm`.`alamat` AS `alamat`,`wm`.`jenis_kelamin` AS `jenis_kelamin`,`wm`.`active` AS `active`,`wm`.`username` AS `username`,`wm`.`created_by` AS `created_by`,`wm`.`created_at` AS `created_at`,`wm`.`updated_by` AS `updated_by`,`wm`.`updated_at` AS `updated_at`,`wm`.`timestamp` AS `timestamp` from ((`wali_murid` `wm` join `siswa` `sw` on((`wm`.`id_siswa` = `sw`.`id`))) join `kelas` `kl` on((`kl`.`id` = `sw`.`id_kelas`))) */;
+/*!50001 VIEW `v_wali_murid` AS select `wm`.`id` AS `id`,`wm`.`nama` AS `nama`,`wm`.`id_siswa` AS `id_siswa`,`sw`.`nama` AS `nama_siswa`,concat(`kl`.`tingkat`,' ',`kl`.`nama_kelas`) AS `nama_kelas`,`wm`.`no_hp` AS `no_hp`,`wm`.`alamat` AS `alamat`,`wm`.`jenis_kelamin` AS `jenis_kelamin`,`wm`.`active` AS `active`,`wm`.`username` AS `username`,`wm`.`created_by` AS `created_by`,`wm`.`created_at` AS `created_at`,`wm`.`updated_by` AS `updated_by`,`wm`.`updated_at` AS `updated_at`,`wm`.`timestamp` AS `timestamp` from ((`wali_murid` `wm` join `siswa` `sw` on(`wm`.`id_siswa` = `sw`.`id`)) join `kelas` `kl` on(`kl`.`id` = `sw`.`id_kelas`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -869,4 +922,4 @@ USE `absensi_siswa`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-04 20:42:16
+-- Dump completed on 2020-10-04 14:31:36
