@@ -245,5 +245,5 @@ function loader(show = true) {
  */
 function toggleMenu() {
   var currentWidth = !menuShow ? "0px" : "280px";
-  $(".sidebar-container").style("left", currentWidth);
+  $(".sidebar-container").style("width", currentWidth);
 }

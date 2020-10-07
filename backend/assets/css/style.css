@@ -20,6 +20,16 @@
   font-weight: bold;
 }
 
+.nav-item {
+  /* padding: 0 5px; */
+}
+
+.nav-item.active {
+  padding: 0 0 0 10px;
+  background-color: #343a40;
+  border-radius: 5px;
+}
+
 #login-form > div > label {
   font-size: 14px !important;
 }
@@ -72,6 +82,11 @@ td {
 
 li.active > a {
   font-weight: bold !important;
+  color: #fff;
+}
+
+.nav-item > a {
+  color: #333;
 }
 
 .modal-content-wrapper {
@@ -93,6 +108,16 @@ li.active > a {
   height: 120px;
 }
 
+.hamburger-inner,
+.hamburger-inner:after,
+.hamburger-inner:before {
+  background-color: #fff !important;
+}
+
+button.hamburger:focus {
+  outline: 0;
+}
+
 .brand-logo {
   width: 40px;
   height: 40px;
@@ -103,6 +128,7 @@ li.active > a {
 }
 
 .sidebar-container {
+  padding: 5px 20px;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
   z-index: 1;
@@ -110,20 +136,8 @@ li.active > a {
   width: 280px;
   height: 100%;
   left: 0px;
-}
-
-@keyframes hide-menu {
-  from {
-    left: 0px;
-  }
-
-  to {
-    left: -280px;
-  }
-}
-
-.sidebar-container > ul > li {
-  margin-left: 30px;
+  transition: width 2s;
+  /* overflow-y: scroll; */
 }
 
 .button-sidebar {
