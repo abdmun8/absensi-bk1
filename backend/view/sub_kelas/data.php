@@ -9,12 +9,12 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Kelas</th>
+                        <th>Tingkat</th>
                         <th>Nama Kelas</th>
-                        <th>Deskripsi</th>
                         <th>Wali Kelas</th>
                         <th>Guru PIC</th>
                         <th>Tipe Kelas</th>
+                        <th>Deskripsi</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -64,16 +64,16 @@
                     data: 'nama_kelas'
                 },
                 {
+                    data: 'nama_guru'
+                },
+                {
+                    data: 'nama_pic_eksternal'
+                },
+                {
+                    data: 'tipe'
+                },
+                {
                     data: 'deskripsi'
-                },
-                {
-                    data: 'wali_kelas'
-                },
-                {
-                    data: 'pic'
-                },
-                {
-                    data: 'tipe_id'
                 },
                 {
                     data: 'id',
