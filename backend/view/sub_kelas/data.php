@@ -1,5 +1,5 @@
 <div class="data-page-header">
-    <p>Data Tipe Sub Kelas</p>
+    <p>Data Sub Kelas</p>
     <button class="btn btn-sm btn-primary" onclick="tambah()">Tambah</button>
 </div>
 <div class="card">
@@ -9,8 +9,12 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Tipe Sub Kelas</th>
-                        <th>Keterangan</th>
+                        <th>Kelas</th>
+                        <th>Nama Kelas</th>
+                        <th>Deskripsi</th>
+                        <th>Wali Kelas</th>
+                        <th>Guru PIC</th>
+                        <th>Tipe Kelas</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -31,7 +35,7 @@
         // param
         var params = {
             action: 'data',
-            table: 'tipe_sub_kelas'
+            table: 'v_sub_kelas'
         };
         // qs object
         var qs = objectToQueryString(params);
@@ -47,16 +51,29 @@
                 targets: 0
             }],
             order: [
-                [1, 'asc']
+                [1, "asc"],
+                [3, "asc"]
             ],
             columns: [{
                     data: 'id'
                 },
                 {
-                    data: 'tipe'
+                    data: 'tingkat'
                 },
                 {
-                    data: 'keterangan'
+                    data: 'nama_kelas'
+                },
+                {
+                    data: 'deskripsi'
+                },
+                {
+                    data: 'wali_kelas'
+                },
+                {
+                    data: 'pic'
+                },
+                {
+                    data: 'tipe_id'
                 },
                 {
                     data: 'id',
@@ -84,17 +101,17 @@
 
 
     function hapus(id) {
-        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('tipe_sub_kelas', id, table);
+        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('sub_kelas', id, table);
     }
 
     function tambah() {
-        loadPage('tipe_sub_kelas/form');
+        loadPage('sub_kelas/form');
     }
 
     function edit(id) {
-        loadPage('tipe_sub_kelas/form', {
+        loadPage('sub_kelas/form', {
             id: id,
-            table: 'tipe_sub_kelas',
+            table: 'sub_kelas',
         });
     }
 </script>

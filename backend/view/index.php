@@ -23,7 +23,7 @@
                             <span class="hamburger-inner"></span>
                         </span>
                     </button>
-                    <!-- <button class="btn btn-secondary btn-sm mr-3">Show</button> -->
+                    <!---<button class="btn btn-secondary btn-sm mr-3">Show</button> -->
                     <a class="navbar-brand" href="#"><img src="./assets/logo.png" class="brand-logo" /></a>
                 </div>
                 <div class="user-info">
@@ -56,10 +56,10 @@
                     <a class="nav-link" data-menu="kelas" href="#">Data Kelas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-menu="tipe_sub_kelas" href="#">Data Sub Kelas</a>
+                    <a class="nav-link" data-menu="sub_kelas" href="#">Data Sub Kelas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-menu="sub_kelas" href="#">Data Tipe Sub Kelas</a>
+                    <a class="nav-link" data-menu="tipe_sub_kelas" href="#">Data Tipe Sub Kelas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-menu="pic_eksternal" href="#">Data PIC Eksternal</a>
@@ -73,18 +73,12 @@
                 <li class="nav-item">
                     <a class="nav-link" data-menu="jadwal_sekolah" href="#">Data Jadwal Sekolah</a>
                 </li>
-
             </ul>
         </div>
         <div class="dynamic container">
             Loading...
         </div>
-
     </section>
-
-
-
-
     <script src="./assets/js/jquery-3.5.1.min.js"></script>
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/app.js??<?= time() ?>"></script>

@@ -1,5 +1,5 @@
 <div class="data-page-header">
-    <p>Data Sub Kelas</p>
+    <p>Data Tipe Sub Kelas</p>
     <button class="btn btn-sm btn-primary" onclick="tambah()">Tambah</button>
 </div>
 <div class="card">
@@ -9,12 +9,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Kelas</th>
-                        <th>Nama Kelas</th>
-                        <th>Deskripsi</th>
-                        <th>Wali Kelas</th>
-                        <th>Guru PIC</th>
-                        <th>Tipe Kelas</th>
+                        <th>Tipe Sub Kelas</th>
+                        <th>Keterangan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -35,7 +31,7 @@
         // param
         var params = {
             action: 'data',
-            table: 'sub_kelas'
+            table: 'tipe_sub_kelas'
         };
         // qs object
         var qs = objectToQueryString(params);
@@ -57,22 +53,10 @@
                     data: 'id'
                 },
                 {
-                    data: 'tingkat'
+                    data: 'tipe'
                 },
                 {
-                    data: 'nama_kelas'
-                },
-                {
-                    data: 'deskripsi'
-                },
-                {
-                    data: 'wali_kelas'
-                },
-                {
-                    data: 'pic'
-                },
-                {
-                    data: 'tipe_id'
+                    data: 'keterangan'
                 },
                 {
                     data: 'id',
@@ -100,17 +84,17 @@
 
 
     function hapus(id) {
-        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('sub_kelas', id, table);
+        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('tipe_sub_kelas', id, table);
     }
 
     function tambah() {
-        loadPage('sub_kelas/form');
+        loadPage('tipe_sub_kelas/form');
     }
 
     function edit(id) {
-        loadPage('sub_kelas/form', {
+        loadPage('tipe_sub_kelas/form', {
             id: id,
-            table: 'sub_kelas',
+            table: 'tipe_sub_kelas',
         });
     }
 </script>
