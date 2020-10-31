@@ -1,5 +1,5 @@
 <div class="data-page-header">
-    <p>Data kelas</p>
+    <p>Data Wali Murid</p>
     <button class="btn btn-sm btn-primary" onclick="tambah()">Tambah</button>
 </div>
 <div class="card">
@@ -9,9 +9,12 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Tingkat</th>
-                        <th>Nama Kelas</th>
-                        <th>Deskripsi</th>
+                        <th>Nama Wali Murid</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Nama Siswa</th>
+                        <th>Kelas</th>
+                        <th>No Telepon</th>
+                        <th>Alamat</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -21,6 +24,7 @@
         </div>
     </div>
 </div>
+
 <script>
     var table;
     $(document).ready(function() {
@@ -31,7 +35,7 @@
         // param
         var params = {
             action: 'data',
-            table: 'kelas'
+            table: 'v_wali_murid'
         };
         // qs object
         var qs = objectToQueryString(params);
@@ -53,17 +57,26 @@
                     data: 'id'
                 },
                 {
-                    data: 'tingkat'
+                    data: 'nama'
+                },
+                {
+                    data: 'jenis_kelamin'
+                },
+                {
+                    data: 'nama'
                 },
                 {
                     data: 'nama_kelas'
                 },
                 {
-                    data: 'deskripsi'
+                    data: 'no_hp'
                 },
-
+                {
+                    data: 'alamat',
+                },
                 {
                     data: 'id',
+
                     className: 'text-center',
                     render: function(data, o, row) {
                         var button = `
@@ -88,17 +101,17 @@
 
 
     function hapus(id) {
-        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('kelas', id, table);
+        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('wali_murid', id, table);
     }
 
     function tambah() {
-        loadPage('kelas/form');
+        loadPage('wali_murid/form');
     }
 
     function edit(id) {
-        loadPage('kelas/form', {
+        loadPage('wali_murid/form', {
             id: id,
-            table: 'kelas',
+            table: 'wali_murid',
         });
     }
 </script>

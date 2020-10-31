@@ -1,5 +1,5 @@
 <div class="data-page-header">
-    <p>Data kelas</p>
+    <p>Data Penugasan</p>
     <button class="btn btn-sm btn-primary" onclick="tambah()">Tambah</button>
 </div>
 <div class="card">
@@ -9,9 +9,14 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Tingkat</th>
-                        <th>Nama Kelas</th>
-                        <th>Deskripsi</th>
+                        <th>Tahun Ajaran</th>
+                        <th>Semester</th>
+                        <th>Tipe Penugasan</th>
+                        <th>Tipe Kelas</th>
+                        <th>Nama Guru PIC</th>
+                        <th>Kelas</th>
+                        <th>Tanggal Mulai</th>
+                        <th>Tanggal Selesai</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -21,6 +26,7 @@
         </div>
     </div>
 </div>
+
 <script>
     var table;
     $(document).ready(function() {
@@ -31,7 +37,7 @@
         // param
         var params = {
             action: 'data',
-            table: 'kelas'
+            table: 'v_penugasan'
         };
         // qs object
         var qs = objectToQueryString(params);
@@ -47,21 +53,36 @@
                 targets: 0
             }],
             order: [
-                [1, 'asc']
+                [1, "asc"],
+                [3, "asc"]
             ],
             columns: [{
                     data: 'id'
                 },
                 {
-                    data: 'tingkat'
+                    data: 'tahun_ajaran'
+                },
+                {
+                    data: 'semester'
+                },
+                {
+                    data: 'tipe_penugasan'
+                },
+                {
+                    data: 'tipe_kelas'
+                },
+                {
+                    data: 'nama_pic'
                 },
                 {
                     data: 'nama_kelas'
                 },
                 {
-                    data: 'deskripsi'
+                    data: 'start_date'
                 },
-
+                {
+                    data: 'end_date'
+                },
                 {
                     data: 'id',
                     className: 'text-center',
@@ -88,17 +109,17 @@
 
 
     function hapus(id) {
-        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('kelas', id, table);
+        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('penugasan', id, table);
     }
 
     function tambah() {
-        loadPage('kelas/form');
+        loadPage('penugasan/form');
     }
 
     function edit(id) {
-        loadPage('kelas/form', {
+        loadPage('penugasan/form', {
             id: id,
-            table: 'kelas',
+            table: 'penugasan',
         });
     }
 </script>

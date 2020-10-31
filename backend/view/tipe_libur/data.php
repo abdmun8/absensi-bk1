@@ -1,5 +1,5 @@
 <div class="data-page-header">
-    <p>Data kelas</p>
+    <p>Data Hari Libur</p>
     <button class="btn btn-sm btn-primary" onclick="tambah()">Tambah</button>
 </div>
 <div class="card">
@@ -9,9 +9,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Tingkat</th>
-                        <th>Nama Kelas</th>
-                        <th>Deskripsi</th>
+                        <th>Nama Libur</th>
+                        <th>Keterangan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -21,6 +20,7 @@
         </div>
     </div>
 </div>
+
 <script>
     var table;
     $(document).ready(function() {
@@ -31,7 +31,7 @@
         // param
         var params = {
             action: 'data',
-            table: 'kelas'
+            table: 'tipe_libur'
         };
         // qs object
         var qs = objectToQueryString(params);
@@ -53,15 +53,11 @@
                     data: 'id'
                 },
                 {
-                    data: 'tingkat'
+                    data: 'nama_libur'
                 },
                 {
-                    data: 'nama_kelas'
+                    data: 'keterangan'
                 },
-                {
-                    data: 'deskripsi'
-                },
-
                 {
                     data: 'id',
                     className: 'text-center',
@@ -88,17 +84,17 @@
 
 
     function hapus(id) {
-        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('kelas', id, table);
+        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('tipe_libur', id, table);
     }
 
     function tambah() {
-        loadPage('kelas/form');
+        loadPage('tipe_libur/form');
     }
 
     function edit(id) {
-        loadPage('kelas/form', {
+        loadPage('tipe_libur/form', {
             id: id,
-            table: 'kelas',
+            table: 'tipe_libur',
         });
     }
 </script>

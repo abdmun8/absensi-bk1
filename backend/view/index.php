@@ -47,7 +47,7 @@
         <div class="sidebar-container">
             <ul class="navbar-nav" id="header-menu">
                 <li class="nav-item active">
-                    <a class="nav-link" data-menu="siswa" href="#">Siswa</a>
+                    <a class="nav-link" data-menu="siswa" href="#">Data Siswa</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-menu="guru" href="#">Data Guru</a>
@@ -73,6 +73,21 @@
                 <li class="nav-item">
                     <a class="nav-link" data-menu="jadwal_sekolah" href="#">Data Jadwal Sekolah</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="penugasan" href="#">Data Penugasan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="tipe_libur" href="#">Data Hari Libur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="wali_murid" href="#">Data Wali Siswa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-menu="setting" href="#">Setting</a>
+                </li>
+
+
+
             </ul>
         </div>
         <div class="dynamic container">

@@ -1,5 +1,5 @@
 <div class="data-page-header">
-    <p>Data kelas</p>
+    <p>Data Setting</p>
     <button class="btn btn-sm btn-primary" onclick="tambah()">Tambah</button>
 </div>
 <div class="card">
@@ -9,9 +9,10 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Tingkat</th>
-                        <th>Nama Kelas</th>
-                        <th>Deskripsi</th>
+                        <th>Tahun Ajaran</th>
+                        <th>Semester</th>
+                        <th>Nama Sekolah</th>
+                        <th>Kepala Sekolah</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -21,6 +22,7 @@
         </div>
     </div>
 </div>
+
 <script>
     var table;
     $(document).ready(function() {
@@ -31,7 +33,7 @@
         // param
         var params = {
             action: 'data',
-            table: 'kelas'
+            table: 'setting'
         };
         // qs object
         var qs = objectToQueryString(params);
@@ -53,13 +55,16 @@
                     data: 'id'
                 },
                 {
-                    data: 'tingkat'
+                    data: 'tahun_ajaran'
                 },
                 {
-                    data: 'nama_kelas'
+                    data: 'semester'
                 },
                 {
-                    data: 'deskripsi'
+                    data: 'nama_sekolah'
+                },
+                {
+                    data: 'kepala_sekolah'
                 },
 
                 {
@@ -88,17 +93,17 @@
 
 
     function hapus(id) {
-        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('kelas', id, table);
+        if (confirm("Apakah anda yakin akan mengahpus data ini?")) deleteData('setting', id, table);
     }
 
     function tambah() {
-        loadPage('kelas/form');
+        loadPage('setting/form');
     }
 
     function edit(id) {
-        loadPage('kelas/form', {
+        loadPage('setting/form', {
             id: id,
-            table: 'kelas',
+            table: 'setting',
         });
     }
 </script>
