@@ -18,13 +18,13 @@
         <div class="container-fluid">
             <div class="header-container">
                 <div class="user-info">
-                    <button class="hamburger hamburger--squeeze js-hamburger is-active button-sidebar" type="button" onclick="toggleMenu()">
+                    <button class="hamburger hamburger--squeeze js-hamburger is-active button-sidebar bg-white radius-hamburger" type="button" onclick="toggleMenu()">
                         <span class="hamburger-box">
                             <span class="hamburger-inner"></span>
                         </span>
                     </button>
                     <!---<button class="btn btn-secondary btn-sm mr-3">Show</button> -->
-                    <a class="navbar-brand" href="#"><img src="./assets/logo.png" class="brand-logo" /></a>
+                    <a class="navbar-brand ml-3" href="#"><img src="./assets/logo.png" class="brand-logo" /></a>
                 </div>
                 <div class="user-info">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,51 +44,62 @@
         <div id="loader-content" class="bg-success">Loading...</div>
     </div> -->
     <section class="content">
-        <div class="sidebar-container">
-            <ul class="navbar-nav" id="header-menu">
-                <li class="nav-item active">
-                    <a class="nav-link" data-menu="siswa" href="#">Data Siswa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="guru" href="#">Data Guru</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="kelas" href="#">Data Kelas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="sub_kelas" href="#">Data Sub Kelas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="tipe_sub_kelas" href="#">Data Tipe Sub Kelas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="pic_eksternal" href="#">Data PIC Eksternal</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="ekskul" href="#">Data Ekskul</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="mata_pelajaran" href="#">Data Mata Pelajaran</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="jadwal_sekolah" href="#">Data Jadwal Sekolah</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="penugasan" href="#">Data Penugasan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="tipe_libur" href="#">Data Hari Libur</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="wali_murid" href="#">Data Wali Siswa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-menu="setting" href="#">Setting</a>
-                </li>
+        <div>
+            <div class="sidebar-container">
+                <div>
+                    <div class="menu-top d-flex direction-row justify-content-between align-items-center">
+                        <a class="navbar-brand" href="#"><img src="./assets/logo.png" class="brand-logo" /></a>
+                        <button class="hamburger hamburger--squeeze js-hamburger is-active button-sidebar" type="button" onclick="toggleMenu()">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                    <hr />
+                </div>
 
-
-
-            </ul>
+                <ul class="navbar-nav" id="header-menu">
+                    <li class="nav-item active">
+                        <a class="nav-link" data-menu="siswa" href="#">Data Siswa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="guru" href="#">Data Guru</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="kelas" href="#">Data Kelas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="sub_kelas" href="#">Data Sub Kelas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="tipe_sub_kelas" href="#">Data Tipe Sub Kelas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="pic_eksternal" href="#">Data PIC Eksternal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="ekskul" href="#">Data Ekskul</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="mata_pelajaran" href="#">Data Mata Pelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="jadwal_sekolah" href="#">Data Jadwal Sekolah</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="penugasan" href="#">Data Penugasan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="tipe_libur" href="#">Data Hari Libur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="wali_murid" href="#">Data Wali Siswa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-menu="setting" href="#">Setting</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="dynamic container">
             Loading...

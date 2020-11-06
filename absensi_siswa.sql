@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `absensi_siswa`
 --
+drop database absensi_siswa;
+create database absensi_siswa;
+USE absensi_siswa;
 
 -- --------------------------------------------------------
 
