@@ -2,31 +2,33 @@
 
 namespace Service;
 
-include 'vendor/JWT.php';
+include './vendor/AltoRouter.php';
+include './vendor/JWT.php';
+include './src/index.php';
+include './src/router.php';
 
 use Firebase\JWT;
+use \AltoRouter;
 use \PDO;
-
-
-// load file
 
 
 class Service
 {
 
-    private $db = null;
+    public $db = null;
     private $server = "localhost";
     private $dbname = "absensi_siswa";
     private $user = "root";
     private $pass = "";
     function __construct()
     {
+
         $this->db = new PDO("mysql:host=$this->server;dbname=$this->dbname", $this->user, $this->pass);
     }
 
     function index()
     {
-        echo json_encode(['message' => 'hello world']);
+        // echo json_encode(['message' => 'hello world']);
     }
 
     // READ
@@ -56,16 +58,17 @@ class Service
         }
     }
 
-    private function json($data = [])
+    public function json($data = [])
     {
-        header('Content-Type: application/json; charset=UTF-8');
+        header('Content-Type: Application/json, charset=UTF-8');
         header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Method: GET, POST');
         header('Access-Control-Allow-Headers: *');
+        header("Access-Control-Allow-Credentials: true");
+
         echo json_encode($data);
     }
 
-    private function dd($data)
+    public function dd($data)
     {
         var_dump($data);
         die;
@@ -76,7 +79,7 @@ class Service
         $username = '';
         $password = '';
         $data = json_decode(file_get_contents("php://input"));
-        $this->json(Firebase\JWT);
+        // $this->json(Firebase\JWT);
         if (!isset($data)) die();
         // $username = $data->u;
         // $password = $data->p;
@@ -246,10 +249,3 @@ class Service
         echo json_encode(array("success" => $success, "message" => $message));
     }
 }
-
-
-
-// echo json_encode(['data' => ['message' => 'hello world']]);
-
-$service = new Service();
-$service->login();

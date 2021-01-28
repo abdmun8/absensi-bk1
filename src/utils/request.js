@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const TOKEN = localStorage.getItem("TOKEN") || "";
+const TOKEN = localStorage.getItem("TOKEN") || "ok";
 export const req = ({ method, data, url, params, headers }) => {
   return new Promise((resolve, reject) => {
     {
@@ -9,7 +9,6 @@ export const req = ({ method, data, url, params, headers }) => {
         method: method,
         headers: {
           ...headers,
-          Accept: "application/json",
           "Content-Type": "Application/json",
           Authorization: `Bearer ${TOKEN},`,
         },

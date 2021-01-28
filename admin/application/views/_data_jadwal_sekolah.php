@@ -77,15 +77,15 @@ $tipe_libur = $this->db->get('tipe_libur')->result();
                         <div class="form-group">
                           <label>Semester</label>
                           <select class="form-control" id="semester" name="semester">
-                          <option value="" selected disabled>Pilih Semester</option>
+                            <option value="" selected disabled>Pilih Semester</option>
                             <option value="Ganjil"> Ganjil</option>
                             <option value="Genap">Genap</option>
                           </select>
                         </div>
                       </div>
                       <!-- Row -->
-                
-                       <div class=" col-md-6">
+
+                      <div class=" col-md-6">
                         <div class="form-group">
                           <label>Nama Libur</label>
                           <input type="text" class="form-control" placeholder="Nama Libur" id="nama_libur" name="nama_libur">
@@ -97,22 +97,22 @@ $tipe_libur = $this->db->get('tipe_libur')->result();
                           <textarea class="form-control" rows="3" placeholder="Keterangan" id="keterangan" name="keterangan"></textarea>
                         </div>
                       </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Tipe Libur</label>
-                        <select class="form-control" id="tipe_libur" name="tipe_libur">
-                          <option value="" selected disabled>Pilih Tipe Libur</option>
-                          <?php
-                          foreach ($tipe_libur as $key => $v) {
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Tipe Libur</label>
+                          <select class="form-control" id="tipe_libur" name="tipe_libur">
+                            <option value="" selected disabled>Pilih Tipe Libur</option>
+                            <?php
+                            foreach ($tipe_libur as $key => $v) {
                             ?>
-                            <option value="<?= $v->id ?>"><?= $v->nama_libur ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
+                              <option value="<?= $v->id ?>"><?= $v->nama_libur ?></option>
+                            <?php
+                            }
+                            ?>
+                          </select>
+                        </div>
                       </div>
                     </div>
-                 </div>
 
                     <!-- End Row -->
 
@@ -191,7 +191,7 @@ $tipe_libur = $this->db->get('tipe_libur')->result();
           {
             "data": "tahun_ajaran"
           },
-          
+
           {
             "data": "nama_libur"
           },
@@ -233,7 +233,7 @@ $tipe_libur = $this->db->get('tipe_libur')->result();
     }
     ?>
     $("#data-table .editBtn").on("click", function() {
-      loadContent(base_url + 'view/_jadwal_sekolah/' + $(this).attr('href').substring(1));
+      loadContent(base_url + 'view/_data_jadwal_sekolah/' + $(this).attr('href').substring(1));
     });
 
     $("#data-table .removeBtn").on("click", function() {

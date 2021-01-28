@@ -9,6 +9,7 @@ import AsensiGuru from "./components/pages/AbsensiGuru";
 import JadwalGuru from "./components/pages/JadwalGuru";
 import KelasToday from "./components/pages/KelasToday";
 import AbsensiSiswa from "./components/pages/AbsensiSiswa";
+import Loading from "./components/pages/Loading";
 
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -17,16 +18,13 @@ function App() {
   const loggedIn = useSelector((state) => state.loggedIn);
   return (
     <Switch>
-      <Route exact path="/" component={loggedIn ? Menu : Login} />
-      <Route path="/absensi-guru" component={loggedIn ? AsensiGuru : Login} />
-      {/* <Route path="/check" component={loggedIn ? CheckInOut : Login} /> */}
-      <Route path="/kelas" component={loggedIn ? KelasToday : Login} />
-      <Route path="/reader-qr" component={loggedIn ? ReaderQR : Login} />
-      <Route
-        path="/absensi-siswa"
-        component={loggedIn ? AbsensiSiswa : Login}
-      />
-      <Route path="/jadwal-guru" component={loggedIn ? JadwalGuru : Login} />
+      <Route exact path="/" component={Loading} />
+      <Route exact path="/absensi-guru" component={AsensiGuru} />
+      <Route exact path="/kelas" component={KelasToday} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/reader-qr" component={ReaderQR} />
+      <Route exact path="/absensi-siswa" component={AbsensiSiswa} />
+      <Route exact path="/jadwal-guru" component={JadwalGuru} />
     </Switch>
   );
 }

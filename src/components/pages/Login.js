@@ -96,9 +96,6 @@ export default function Login() {
     setSnackBarState({ ...snackBarState, open: false });
   };
 
-  console.log(fieldError);
-  console.log(loginForm);
-
   const doLogin = async () => {
     setIsSubmit(true);
     let countError = 0;
@@ -117,7 +114,7 @@ export default function Login() {
       return;
     }
 
-    req({ data: loginForm, method: "POST", url: "/" })
+    req({ data: loginForm, method: "POST", url: "/login" })
       .then((res) => {
         console.log(res);
       })
