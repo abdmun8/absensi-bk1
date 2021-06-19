@@ -1,19 +1,28 @@
 import axios from "axios";
 
-const TOKEN = localStorage.getItem("TOKEN") || "ok";
-export const req = ({ method, data, url, params, headers }) => {
+const TOKEN = localStorage.getItem("TOKEN") || "";
+export const req = ({
+  method = "GET",
+  data = {},
+  url,
+  params = {},
+  headers = {},
+  others = {},
+}) => {
   return new Promise((resolve, reject) => {
     {
       const config = {
         baseURL: process.env.REACT_APP_API_URL + url,
-        method: method,
+        method,
         headers: {
           ...headers,
-          "Content-Type": "Application/json",
-          Authorization: `Bearer ${TOKEN},`,
+          "Content-Type": headers["Content-Type"] || "Application/json",
+          Accept: headers["Accept"] || "application/json",
+          Authorization: TOKEN ? `Bearer ${TOKEN}` : "",
         },
-        data: JSON.stringify(data),
-        params: params,
+        data,
+        ...others,
+        withCredentials: false
       };
 
       axios(config)

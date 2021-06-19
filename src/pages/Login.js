@@ -1,22 +1,24 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  FormControlLabel,
+  Switch,
+  Slide,
+  Snackbar,
+} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import Slide from "@material-ui/core/Slide";
-import Snackbar from "@material-ui/core/Snackbar";
 // import
 
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../utils/JWTAuth";
-import { req } from "../../utils/request";
+import { useDispatch } from "react-redux";
+import { req } from "../utils/request";
 
 const DevelovedBy = () => {
   return (
@@ -69,9 +71,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const [fieldError, setFieldError] = useState({
     username: false,
@@ -85,8 +87,6 @@ export default function Login() {
   const [state, setState] = useState({
     urlOutside: false,
   });
-  let loggedIn = useSelector((state) => state.loggedIn);
-  const dispatch = useDispatch();
 
   const handleSnackbarClose = () => {
     setSnackBarState({ ...snackBarState, open: false });
@@ -114,27 +114,15 @@ export default function Login() {
       return;
     }
 
-    req({ data: loginForm, method: "POST", url: "/login" })
+    req({ data: loginForm, method: "POST", url: "/auth/login" })
       .then((res) => {
-        console.log(res);
+        dispatch({ type: "SET_CURRENT_USER", payload: res.user });
+        dispatch({ type: "SET_IS_LOGGEDIN", payload: true });
+        history.push("/");
       })
       .catch((err) => {
         console.log(err);
       });
-
-    // let response = await login(info);
-    // if (response && response.success) {
-    //   // alert(2)
-    //   dispatch({ type: "SET_CURRENT_USER", payload: response.data });
-    //   dispatch({ type: "TOGGLE_LOGIN", payload: loggedIn });
-    //   dispatch({
-    //     type: "SET_MENU",
-    //     payload: state.urlOutside ? menuOutside : menuInside,
-    //   });
-    // } else {
-    //   alert("Username/Password Salah!");
-    // }
-    // alert(1)
   };
 
   const menuOutside = [
@@ -198,12 +186,6 @@ export default function Login() {
     setState({ ...state, [name]: event.target.checked });
     let menus = event.target.checked ? menuOutside : menuInside;
     dispatch({ type: "SET_MENU", payload: menus });
-    // try {
-    //   localStorage.setItem('isUrlOutside', event.target.checked)
-    //   localStorage.setItem('menus', JSON.stringify(menus))
-    // } catch (error) {
-    //   console.log(error)
-    // }
   };
 
   return (

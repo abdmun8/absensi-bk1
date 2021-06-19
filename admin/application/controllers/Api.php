@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+require(APPPATH . 'libraries/REST_Controller.php');
+
 use \Firebase\JWT\JWT;
 
 header("Access-Control-Allow-Origin: *");
@@ -9,10 +11,14 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-class Api extends Ci_Controller
+class Api extends REST_Controller
 {
     function index()
     {
+        echo "Welcome!";
+    }
+
+    function index_post(){
         echo "Welcome!";
     }
 
@@ -64,16 +70,16 @@ class Api extends Ci_Controller
                 http_response_code(200);
 
                 $jwt = JWT::encode($token, $secretKey, 'HS256');
-                echo json_encode(
-                    array(
-                        "message" => "Successful login.",
-                        "jwt" => $jwt,
-                        "name" => ucwords($name),
-                        "jk" => $jk,
-                        "nik" => $nik,
-                        "id" => $id
-                    )
+                $response = array(
+                    "message" => "Successful login.",
+                    "jwt" => $jwt,
+                    "name" => ucwords($name),
+                    "jk" => $jk,
+                    "nik" => $nik,
+                    "id" => $id
                 );
+
+                $this->response($response, REST_Controller::HTTP_OK);
             } else {
 
                 http_response_code(401);
@@ -84,7 +90,7 @@ class Api extends Ci_Controller
 
     function protected()
     {
-        $secret_key = "abdmun8";
+        $secret_key = base64_decode("abdmun8");
         $jwt = NULL;
         if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
             http_response_code(401);

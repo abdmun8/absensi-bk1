@@ -3,8 +3,8 @@ const INITIAL_STATE = false;
 
 export default function loginReducer(loggedIn = INITIAL_STATE, { type, payload }) {
     switch (type) {
-        case 'TOGGLE_LOGIN':
-            return !payload;
+        case 'SET_IS_LOGGEDIN':
+            return payload;
         default:
             return loggedIn;
     }

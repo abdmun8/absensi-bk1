@@ -1,18 +1,21 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Gurumodel extends Model {
+class Gurumodel extends Model
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->table = 'guru';  //tabel db yg dipakai
         $this->isNew = false;
     }
 
     //mapping filed yang akan disimpan
-    public function getField($inputs = array()) {
+    public function getField($inputs = array())
+    {
         $fields = array(
-            'nama_guru' => $inputs['nama_guru'],
+            'nama' => $inputs['nama'],
             'nik' => $inputs['nik'],
             'tgl_lahir' => $inputs['tgl_lahir'],
             'pendidikan' => $inputs['pendidikan'],
@@ -24,7 +27,7 @@ class Gurumodel extends Model {
             'created_at' => date('Y-m-d H:i:s')
         );
 
-        if($inputs['password'] != ""){
+        if ($inputs['password'] != "") {
             $fields['password'] = md5($inputs['password']);
         }
 
@@ -32,30 +35,31 @@ class Gurumodel extends Model {
     }
 
     //aturan validasi
-    public function getRules() {
+    public function getRules()
+    {
         $newRule = ($this->isNew) ? '|is_unique[' . $this->table . '.id]' : '';
         $nama_guru = array(
-            'field' => 'nama_guru',
+            'field' => 'nama',
             'label' => 'Nama guru',
             'rules' => 'trim|required|max_length[50]'
         );
 
-        
+
 
         $username = array(
             'field' => 'username',
             'label' => 'NIK',
-            'rules' => 'trim|required|max_length[20]' . $newRule 
+            'rules' => 'trim|required|max_length[20]' . $newRule
         );
 
-       
+
 
         $jenis_kelamin = array(
             'field' => 'jenis_kelamin',
             'label' => 'Jenis Kelamin',
             'rules' => 'trim|required|max_length[1]'
-        );       
-        
+        );
+
         return array($nama_guru, $jenis_kelamin);
     }
 }
