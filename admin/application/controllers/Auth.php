@@ -71,12 +71,14 @@ class Auth extends RestController
                     ]
                 ];
 
-                $user_data = base64_encode(json_encode([
-                    "name" => ucwords($name),
-                    "jk" => $jk,
-                    "nik" => $nik,
-                    "id" => $id
-                ]).$this->secret_key_user);
+                $user_data = base64_encode(
+                    json_encode([
+                        "name" => ucwords($name),
+                        "jk" => $jk,
+                        "nik" => $nik,
+                        "id" => $id
+                    ])
+                );
 
                 $jwt = JWT::encode($token, $secretKey, 'HS256');
                 $response = array(

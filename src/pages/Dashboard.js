@@ -63,6 +63,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+export default function Dashboard() {
+  const classes = useStyles();
+  return (
+    <>
+      <NavbarApp appBarData={{ isMenu: 0, title: "Dashboard" }} />
+      <Container className={classes.root}>
+        <Icon className={classes.photo}>face</Icon>
+        <Typography className={classes.nama}>
+          <div>dashboard</div>
+        </Typography>
+      </Container>
+    </>
+  );
+}
+
 const CheckinOut = ({ location }) => {
   const classes = useStyles();
   const params = new URLSearchParams(location.search);
@@ -80,20 +95,20 @@ const CheckinOut = ({ location }) => {
   const URL = "https://api.sekawanpm.com/absensi";
   const key = "5b8e847c500b3a026824738c40246e75";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios({
-        url: URL + "/" + nikNum + "?key=" + key,
-      });
-      if (result.data.status == 1) {
-        setNamaEmployee(result.data.data.nama);
-      } else {
-        alert("Nik tidak terdaftar!");
-        window.open("/", "_self");
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios({
+  //       url: URL + "/" + nikNum + "?key=" + key,
+  //     });
+  //     if (result.data.status == 1) {
+  //       setNamaEmployee(result.data.data.nama);
+  //     } else {
+  //       alert("Nik tidak terdaftar!");
+  //       window.open("/", "_self");
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const sendCheck = (action) => {
     let data = {
@@ -124,58 +139,14 @@ const CheckinOut = ({ location }) => {
   }, 60000);
 
   return (
-    <React.Fragment>
+    <>
       <NavbarApp appBarData={{ isMenu: 0, title: "Masuk / Pulang" }} />
-
       <Container className={classes.root}>
         <Icon className={classes.photo}>face</Icon>
         <Typography className={classes.nama}>
-          {namaEmployee && namaEmployee}
+          <div>dashboard</div>
         </Typography>
-        <Typography className={classes.nik}>{nikNum && nikNum}</Typography>
-        <Paper className={classes.boxTime}>
-          <Grid container spacing={0}>
-            <Grid item xs={6} className={classes.icon}>
-              <Typography className={classes.title}>Waktu</Typography>
-            </Grid>
-            <Grid item xs={6} style={{ textAlign: "right" }}>
-              <Icon>access_alarm</Icon>
-            </Grid>
-          </Grid>
-          <Typography className={classes.dater}>
-            {setDateString(data)}
-          </Typography>
-          <Typography className={classes.timer}>
-            {setTimeString(data)}
-          </Typography>
-        </Paper>
-        <Grid container spacing={0} className={classes.buttonContainer}>
-          <Grid item xs={6} className={classes.button}>
-            <Button
-              type="submit"
-              onClick={() => sendCheck("I")}
-              variant="contained"
-              size="large"
-              color="primary"
-            >
-              Masuk
-            </Button>
-          </Grid>
-          <Grid item xs={6} className={classes.button}>
-            <Button
-              type="submit"
-              onClick={() => sendCheck("O")}
-              variant="contained"
-              size="large"
-              color="default"
-            >
-              Pulang
-            </Button>
-          </Grid>
-        </Grid>
       </Container>
-    </React.Fragment>
+    </>
   );
 };
-
-export default CheckinOut;

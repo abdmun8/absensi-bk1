@@ -7,7 +7,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
 import App from "./App";
 import { store, persistor } from "./redux/store";
-import dotenv from "dotenv/config";
 
 ReactDOM.render(
   <Provider store={store}>

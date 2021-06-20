@@ -2,21 +2,21 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Navbar from "../templates/NavbarApp";
+import Navbar from "../components/templates/NavbarApp";
 import Icon from "@material-ui/core/Icon";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(9)
+    marginTop: theme.spacing(9),
   },
   paper: {
     padding: theme.spacing(2),
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   left: {
-    display: "inline-block"
+    display: "inline-block",
   },
   right: {
     display: "inline-block",
@@ -25,25 +25,25 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold",
     fontFamily: "ubuntu",
     fontSize: "4em",
-    color: "#ddd"
+    color: "#ddd",
   },
   font: {
-    fontFamily: "ubuntu"
-  }
+    fontFamily: "ubuntu",
+  },
 }));
 
-const getKelas = async token => {
+const getKelas = async (token) => {
   let SERVER_URL = "http://localhost/abcd/absensi-bk1/admin/api/";
   const url = `${SERVER_URL}protected`;
   try {
     let response = axios
       .get(url, { headers: { Authorization: `Bearer ${token}` } })
       .then(
-        response => {
+        (response) => {
           // var response = response.data;
           console.log(response);
         },
-        error => {
+        (error) => {
           // var status = error.response.status;
           console.log(error);
         }
@@ -62,8 +62,8 @@ const getKelas = async token => {
 
 export default function PaperSheet() {
   const classes = useStyles();
-  let checkedIn = useSelector(state => state.checkedIn);
-  const token = useSelector(state => state.currentUser.access_token);
+  let checkedIn = useSelector((state) => state.checkedIn);
+  const token = useSelector((state) => state.currentUser.access_token);
   if (!checkedIn) {
     alert("Silahkan Absen Terlebih dahulu");
     return <Redirect to="/" />;

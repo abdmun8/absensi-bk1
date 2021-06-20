@@ -6,25 +6,25 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import NavbarApp from "../templates/NavbarApp";
+import NavbarApp from "../components/templates/NavbarApp";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import { Redirect } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
-    marginTop: theme.spacing(7)
+    marginTop: theme.spacing(7),
   },
   paper: {
     // width: '100%',
     // padding: theme.spacing(2),
-    overflowX: "auto"
+    overflowX: "auto",
   },
   table: {
     // minWidth: 650,
-  }
+  },
 }));
 
 function createData(name, calories, fat, id) {
@@ -40,7 +40,7 @@ const rows = [
   createData("Gingerbread", false, 16.0, 6),
   createData("Gingerbread", false, 16.0, 7),
   createData("Gingerbread", false, 16.0, 8),
-  createData("Gingerbread", false, 16.0, 9)
+  createData("Gingerbread", false, 16.0, 9),
 ];
 
 export default function SimpleTable() {
@@ -65,7 +65,7 @@ export default function SimpleTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
+              {rows.map((row) => (
                 <TableRow key={row.name}>
                   <TableCell component="th" scope="row">
                     {row.name}

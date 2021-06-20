@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../templates/NavbarApp";
+import Navbar from "../components/templates/NavbarApp";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -10,14 +10,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import { useSelector, useDispatch } from "react-redux";
-import { absenGuru } from "../../utils/JWTAuth";
-import Loading from "../templates/Loading";
+import { absenGuru } from "../utils/JWTAuth";
+import Loading from "../components/templates/Loading";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white
-    }
+      backgroundColor: theme.palette.common.white,
+    },
   },
   paper: {
     marginTop: theme.spacing(1),
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     right: 0,
     marginLleft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
   },
   logo: {
     position: "absolute",
@@ -34,42 +34,42 @@ const useStyles = makeStyles(theme => ({
     top: theme.spacing(2),
     margin: "auto",
     width: "6rem",
-    height: "6rem"
+    height: "6rem",
     // marginBottom: theme.spacing(1)
   },
   card: {
-    margin: theme.spacing(9, 2, 2, 2)
+    margin: theme.spacing(9, 2, 2, 2),
   },
   media: {
     backgroundColor: "#c2c2d6",
-    height: 140
+    height: 140,
   },
   cardContent: {
-    textAlign: "center"
+    textAlign: "center",
   },
   date: {
     marginBottom: ".4rem",
-    marginTop: "2rem"
+    marginTop: "2rem",
   },
   cardFooter: {
     // alignItems: 'center'
-    justifyContent: "center"
+    justifyContent: "center",
   },
   button: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: "#661FFF",
     paddingLeft: theme.spacing(5),
     paddingRight: theme.spacing(5),
-    borderRadius: 25
+    borderRadius: 25,
   },
   font: {
-    fontFamily: "Ubuntu"
-  }
+    fontFamily: "Ubuntu",
+  },
 }));
 export default () => {
   const classes = useStyles();
-  const currentUser = useSelector(state => state.currentUser);
-  const isCheckedIn = useSelector(state => state.checkedIn);
+  const currentUser = useSelector((state) => state.currentUser);
+  const isCheckedIn = useSelector((state) => state.checkedIn);
   const date = new Date();
   const dayNames = [
     "Minggu",
@@ -78,11 +78,11 @@ export default () => {
     "Rabu",
     "Kamis",
     "Jum'at",
-    "Sabtu"
+    "Sabtu",
   ];
   const initial_time = date.getHours() + ":" + date.getMinutes();
   const [time, setTime] = useState(initial_time);
-  const dispatch = useDispatch(state => state.checkedIn);
+  const dispatch = useDispatch((state) => state.checkedIn);
   const interval = setInterval(() => {
     let dt = new Date();
     setTime(dt.getHours() + ":" + dt.getMinutes());
@@ -91,7 +91,7 @@ export default () => {
   const handleCheckin = async () => {
     let action = {
       id: currentUser.id,
-      type: isCheckedIn ? "Pulang" : "Masuk"
+      type: isCheckedIn ? "Pulang" : "Masuk",
     };
     let response = await absenGuru(action);
     if (response && response.success) {

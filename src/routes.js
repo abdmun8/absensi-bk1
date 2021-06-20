@@ -8,7 +8,6 @@ const KelasToday = React.lazy(() => import("./pages/KelasToday"));
 const ReaderQR = React.lazy(() => import("./pages/ReaderQR"));
 
 const routes = [
-  { path: "/", exact: true, name: "Home" },
   {
     path: "/absensi-guru",
     exact: true,
@@ -45,7 +44,6 @@ const routes = [
     name: "QR Reader",
     component: ReaderQR,
   },
-  // { path: "/dashboard", name: "Dashboard", component: Dashboard },
 ];
 
 export default routes;

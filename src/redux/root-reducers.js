@@ -10,14 +10,14 @@ import checkinReducer from "./reducer/checkin.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["currentUser", "loggedIn", "checkedIn", "menus"]
+  whitelist: ["currentUser", "loggedIn", "checkedIn", "menus"],
 };
 
 const rootReducer = combineReducers({
   currentUser: userReducer,
   loggedIn: loginReducer,
   menus: menuReducer,
-  checkedIn: checkinReducer
+  checkedIn: checkinReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
