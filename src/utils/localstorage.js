@@ -6,7 +6,7 @@ export const getItem = async (key) =>
       .catch(reject(undefined));
   });
 
-export const getItem = async (key, data) =>
+export const setItem = async (key, data) =>
   new Promise((resolve, reject) => {
     localStorage
       .setItem(key, JSON.stringify(data))

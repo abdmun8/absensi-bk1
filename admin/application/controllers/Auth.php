@@ -15,6 +15,7 @@ class Auth extends RestController
     {
         parent::__construct();
         $this->secret_key = base64_encode("abdmun8");
+        $this->secret_key_user = base64_encode("smk1binakarya");
     }
 
     function index_options()
@@ -70,14 +71,16 @@ class Auth extends RestController
                     ]
                 ];
 
+                $user_data = base64_encode(json_encode([
+                    "name" => ucwords($name),
+                    "jk" => $jk,
+                    "nik" => $nik,
+                    "id" => $id
+                ]).$this->secret_key_user);
+
                 $jwt = JWT::encode($token, $secretKey, 'HS256');
                 $response = array(
-                    "user" => array(
-                        "name" => ucwords($name),
-                        "jk" => $jk,
-                        "nik" => $nik,
-                        "id" => $id
-                    ),
+                    "user" => $user_data,
                     "message" => "OK",
                     "token" => $jwt,
                 );

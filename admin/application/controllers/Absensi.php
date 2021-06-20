@@ -4,8 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
 
-require APPPATH . 'libraries/REST_Controller.php';
-
 class Jadwal extends RestController
 {
 
