@@ -8,4 +8,5 @@ RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
 RewriteRule .* - [e=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 # Set environment
-SetEnv CI_ENV development # development | testing | production
+# development | testing | production
+SetEnv CI_ENV testing 
