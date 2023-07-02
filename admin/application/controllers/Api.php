@@ -13,6 +13,12 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 class Api extends RestController
 {
+    function __construct()
+    {
+        // Construct the parent class
+        parent::__construct();
+    }
+    
     function index()
     {
         echo "Welcome!";
