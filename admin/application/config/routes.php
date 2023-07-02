@@ -61,7 +61,7 @@ $route['view'] = 'Viewer/pathGuide'; // show default page
 $route['view/(:any)'] = 'Viewer/pathGuide/$1'; // show specific page
 $route['view/(:any)/(:any)'] = 'Viewer/pathGuide/$1/$2'; // show specific page with param
 $route['view/(:any)/(:any)/(:any)'] = 'Viewer/pathGuide/$1/$2/$3'; // show specific page with param
-$route['registrasi'] = 'Viewer/registrasi'; // show default page
+//$route['registrasi'] = 'Viewer/registrasi'; // show default page
 //login-logout
 $route['login'] = 'Manager/identify/acknowledge'; // login
 $route['logout'] = 'Manager/identify/revoke'; // logout
