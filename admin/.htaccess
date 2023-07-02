@@ -9,4 +9,4 @@ RewriteRule .* - [e=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 # Set environment
 # development | testing | production
-SetEnv CI_ENV testing 
+SetEnv CI_ENV development 
