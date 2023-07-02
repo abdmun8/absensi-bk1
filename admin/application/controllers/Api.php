@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-require(APPPATH . 'libraries/REST_Controller.php');
-
+//require(APPPATH . 'libraries/REST_Controller.php');
+use chriskacerguis\RestServer\RestController;
 use \Firebase\JWT\JWT;
 
 header("Access-Control-Allow-Origin: *");
@@ -11,7 +11,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-class Api extends REST_Controller
+class Api extends RestController
 {
     function index()
     {
