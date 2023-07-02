@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-//require(APPPATH . 'libraries/REST_Controller.php');
 use chriskacerguis\RestServer\RestController;
 use \Firebase\JWT\JWT;
 
@@ -13,29 +12,28 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 class Api extends RestController
 {
+    private $secret_key = "";
     function __construct()
     {
         // Construct the parent class
         parent::__construct();
+        $this->secret_key = base64_encode("abdmun8");
     }
-    
-    function index()
+
+    function index_get()
     {
-        echo "Welcome!";
+        die(json_encode(["Greet" => "Welcome to absensi SMK 1 Binakarya"]));
     }
 
-    function index_post(){
-        echo "Welcome!";
-    }
-
-    function login()
+    function login_post()
     {
         $username = '';
         $password = '';
         $data = json_decode(file_get_contents("php://input"));
+        // die(json_encode($data));
         if (!isset($data)) die();
-        $username = $data->u;
-        $password = $data->p;
+        $username = $data->username;
+        $password = $data->password;
 
 
         $table_name = 'guru';
@@ -52,7 +50,7 @@ class Api extends RestController
             $password2 = $row['password'];
 
             if (md5($password) == $password2) {
-                $secretKey = 'abdmun8';
+                $secretKey = base64_encode('abdmun8');
                 $tokenId = 'smkbk1';
                 $serverName = "abdmun8.xyz";
                 $issuedAt = time(); // issued at
@@ -82,10 +80,11 @@ class Api extends RestController
                     "name" => ucwords($name),
                     "jk" => $jk,
                     "nik" => $nik,
-                    "id" => $id
+                    "id" => $id,
+                    "x" => $this->secret_key
                 );
 
-                $this->response($response, REST_Controller::HTTP_OK);
+                $this->response($response, RestController::HTTP_OK);
             } else {
 
                 http_response_code(401);
@@ -96,7 +95,8 @@ class Api extends RestController
 
     function protected()
     {
-        $secret_key = base64_decode("abdmun8");
+        // $secret_key = base64_decode("abdmun8");
+
         $jwt = NULL;
         if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
             http_response_code(401);
@@ -107,7 +107,7 @@ class Api extends RestController
         $jwt = $arr[1];
         if ($jwt) {
             try {
-                JWT::decode($jwt, $secret_key, array('HS256'));
+                JWT::decode($jwt, $this->secret_key, array('HS256'));
                 return TRUE;
             } catch (Exception $e) {
                 return FALSE;

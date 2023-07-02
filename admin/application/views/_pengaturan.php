@@ -52,6 +52,7 @@
                         <th>Semester</th>
                         <th>Nama Sekolah</th>
                         <th>Kepala Sekolah</th>
+                        <th>Durasi Pelajaran (Menit)</th>
                         <th>Aksi</th>
                       </tr>
                       </thead>
@@ -93,6 +94,15 @@
                           <div class="form-group">
                             <label>Kepala Sekolah</label>
                             <input type="text" class="form-control" placeholder="Kepala Sekolah" id="kepala_sekolah" name="kepala_sekolah">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Durasi Jam Pelajaran (Menit)</label>
+                            <input type="number" class="form-control" placeholder="Durasi Jam Pelajaran" id="durasi_jam_pelajaran" name="durasi_jam_pelajaran">
                           </div>
                         </div>
                       </div>
@@ -158,6 +168,7 @@
                    {"data": "semester"},
                    {"data": "nama_sekolah"},
                    {"data": "kepala_sekolah"},
+                   {"data": "durasi_jam_pelajaran"},
                    {"data": "aksi"}
                 ],
                 responsive: true,
@@ -233,6 +244,7 @@
                     $("#alamat").val(json.data.object.alamat);
                     $("#nama_sekolah").val(json.data.object.nama_sekolah);
                     $("#kepala_sekolah").val(json.data.object.kepala_sekolah);
+                    $("#durasi_jam_pelajaran").val(json.data.object.durasi_jam_pelajaran);
                     $("#action-input").val('2');
                     $("#value-input").val(json.data.object.id);
                 }

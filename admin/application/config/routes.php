@@ -134,6 +134,8 @@ $route['print_semester'] = 'Manager/printReportSemester'; //
 /* API */
 $route['api/login'] = 'Api/login';
 $route['api/absen-guru'] = 'Api/absenGuru';
+$route['api/jadwal'] = 'Jadwal';
+$route['api/jadwal/today'] = 'Jadwal/today';
 
 
 /* Public */

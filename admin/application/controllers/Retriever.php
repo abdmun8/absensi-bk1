@@ -588,6 +588,7 @@ class Retriever extends CI_Controller
 				'semester' => $record->semester,
 				'nama_sekolah' => $record->nama_sekolah,
 				'kepala_sekolah' => $record->kepala_sekolah,
+				'durasi_jam_pelajaran' => $record->durasi_jam_pelajaran,
 				'aksi' => $linkBtn
 			);
 		}
