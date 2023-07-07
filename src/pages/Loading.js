@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import _ from "lodash";
 
 const Loading = () => {
-  const user = useSelector((state) =>
-    JSON.parse(window.atob(state.currentUser))
-  );
   const history = useHistory();
-  console.log(user);
-  console.log(Object.entries(user).length);
-  if (Object.entries(user).length) {
-    history.push("/dashboard");
-  } else {
-    history.push("/login");
-  }
+  // const user = useSelector((state) => state.currentUser);
+
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     history.push("/login");
+  //   }, 3000);
+  //   if (!_.isEmpty(user)) {
+  //     clearTimeout(timeout);
+  //     history.push("/dashboard");
+  //   }
+  // }, [user]);
 
   return <div>Loading..</div>;
 };

@@ -15,10 +15,12 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import urls from "../utils/urls";
 // import
 
 import { useDispatch } from "react-redux";
 import { req } from "../utils/request";
+import { getMenus } from "../utils/helper";
 
 const DevelovedBy = () => {
   return (
@@ -114,10 +116,12 @@ export default function Login() {
       return;
     }
 
-    req({ data: loginForm, method: "POST", url: "/auth/login" })
+    req({ data: loginForm, method: "POST", url: urls.login })
       .then((res) => {
+        console.log({ res });
         dispatch({ type: "SET_CURRENT_USER", payload: res.user });
         dispatch({ type: "SET_IS_LOGGEDIN", payload: true });
+        localStorage.setItem("TOKEN", res.token);
         history.push("/");
       })
       .catch((err) => {
@@ -125,66 +129,11 @@ export default function Login() {
       });
   };
 
-  const menuOutside = [
-    {
-      idMenu: 1,
-      link: "/report",
-      title: "Izin",
-      icon: "edit_attributes",
-      iconColor: "red",
-    },
-    {
-      idMenu: 2,
-      link: "/jadwal-guru",
-      title: "Jadwal",
-      icon: "insert_invitation",
-      iconColor: "red",
-    },
-  ];
-
-  const menuInside = [
-    {
-      idMenu: 1,
-      link: "/absensi-guru",
-      title: "Absensi Guru",
-      icon: "person",
-      iconColor: "red",
-    },
-    {
-      idMenu: 2,
-      link: "/kelas",
-      title: "Absensi Siswa",
-      icon: "people",
-      iconColor: "red",
-    },
-    {
-      idMenu: 3,
-      link: "/report",
-      title: "Ekskul",
-      icon: "local_play",
-      iconColor: "red",
-    },
-    {
-      idMenu: 4,
-      link: "/report",
-      title: "Izin",
-      icon: "edit_attributes",
-      iconColor: "red",
-    },
-    {
-      idMenu: 5,
-      link: "/jadwal-guru",
-      title: "Jadwal",
-      icon: "insert_invitation",
-      iconColor: "red",
-    },
-  ];
-
   const { vertical, horizontal, open } = snackBarState;
 
   const handleChange = (name) => (event) => {
     setState({ ...state, [name]: event.target.checked });
-    let menus = event.target.checked ? menuOutside : menuInside;
+    let menus = getMenus(event.target.checked);
     dispatch({ type: "SET_MENU", payload: menus });
   };
 
@@ -246,7 +195,7 @@ export default function Login() {
                 color="primary"
               />
             }
-            label="Luar Sekolah"
+            label={state.urlOutside ? "Luar Sekolah" : "Lingkungan Sekolah"}
           />
           <Button
             type="button"

@@ -9,70 +9,43 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import qs from "qs";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    // color: "#dddddd"
-    marginTop: ".5rem",
-    textAlign: "center",
-  },
-  title: {
-    textAlign: "left",
-    marginLeft: ".2rem",
-    fontWeight: "bold",
-    color: "#333333",
-  },
-  boxTime: {
-    marginTop: ".8rem",
-    padding: "1rem",
-    borderRadius: ".5rem",
-    // backgroundColor: "#C9E1F6"
-  },
-  timer: {
-    textAlign: "center",
-    fontSize: "2em",
-    color: "#333333",
-  },
-  dater: {
-    textAlign: "center",
-    fontSize: "1.5em",
-    color: "#333333",
-  },
-  icon: {
-    float: "0px",
-  },
-  nik: {
-    textAlign: "center",
-    color: "#333333",
-    fontSize: "1.5em",
-  },
-  nama: {
-    color: "#333333",
-    textAlign: "center",
-    fontSize: "1.8em",
-  },
-  buttonContainer: {
-    marginTop: "2rem",
-  },
-  button: {
-    textAlign: "center",
-  },
-  photo: {
-    fontSize: "5rem",
-    textAlign: "center",
-  },
-}));
+import urls from "../utils/urls";
+import { req } from "../utils/request";
+import { useSelector } from "react-redux";
+import _ from "lodash";
 
 export default function Dashboard() {
   const classes = useStyles();
+  const currentUser = useSelector((state) => state.currentUser);
+  const user = useSelector((state) => state.currentUser);
+  const [listjadwal, setListJadwal] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      req({ url: urls.jadwalByGuruHariIni + user.id })
+        .then((res) => {
+          setListJadwal(res.data);
+        })
+        .catch((err) => console.log({ err }));
+    }
+  }, [user]);
+
+  if(!currentUser) return <div />
+
   return (
     <>
       <NavbarApp appBarData={{ isMenu: 0, title: "Dashboard" }} />
       <Container className={classes.root}>
         <Icon className={classes.photo}>face</Icon>
-        <Typography className={classes.nama}>
-          <div>dashboard</div>
-        </Typography>
+        <Typography className={classes.nama}>dashboard</Typography>
+        <Typography>Jadwal Hari ini</Typography>
+        {listjadwal.map((item) => {
+          return (
+            <div className="bg-red-500">
+              {_.upperCase(item.hari)} {item.nama_matpel} {item.durasi} Menit
+            </div>
+          );
+        })}
       </Container>
     </>
   );
@@ -150,3 +123,56 @@ const CheckinOut = ({ location }) => {
     </>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // color: "#dddddd"
+    marginTop: ".5rem",
+    textAlign: "center",
+  },
+  title: {
+    textAlign: "left",
+    marginLeft: ".2rem",
+    fontWeight: "bold",
+    color: "#333333",
+  },
+  boxTime: {
+    marginTop: ".8rem",
+    padding: "1rem",
+    borderRadius: ".5rem",
+    // backgroundColor: "#C9E1F6"
+  },
+  timer: {
+    textAlign: "center",
+    fontSize: "2em",
+    color: "#333333",
+  },
+  dater: {
+    textAlign: "center",
+    fontSize: "1.5em",
+    color: "#333333",
+  },
+  icon: {
+    float: "0px",
+  },
+  nik: {
+    textAlign: "center",
+    color: "#333333",
+    fontSize: "1.5em",
+  },
+  nama: {
+    color: "#333333",
+    textAlign: "center",
+    fontSize: "1.8em",
+  },
+  buttonContainer: {
+    marginTop: "2rem",
+  },
+  button: {
+    textAlign: "center",
+  },
+  photo: {
+    fontSize: "5rem",
+    textAlign: "center",
+  },
+}));

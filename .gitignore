@@ -2,7 +2,7 @@
 .env
 node_modules/
 build/
-yarn.lock
+yarn-error.log
 composer.lock.json
 admin/application/config/config.php
 admin/application/config/database.php

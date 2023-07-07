@@ -1,6 +1,22 @@
 import axios from "axios";
 
-const TOKEN = localStorage.getItem("TOKEN") || "";
+const instance = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  timeout: 30000,
+});
+
+instance.interceptors.request.use((config) => {
+  const TOKEN = localStorage.getItem("TOKEN") || "";
+  config.headers = {
+    ...config.headers,
+    "Content-Type": config.headers["Content-Type"] || "Application/json",
+    Accept: config.headers["Accept"] || "application/json",
+    Authorization: TOKEN ? `Bearer ${TOKEN}` : "",
+  };
+  
+  return config;
+});
+
 export const req = ({
   method = "GET",
   data = {},
@@ -11,21 +27,12 @@ export const req = ({
 }) => {
   return new Promise((resolve, reject) => {
     {
-      const config = {
-        baseURL: process.env.REACT_APP_API_URL + url,
+      instance({
+        url,
         method,
-        headers: {
-          ...headers,
-          "Content-Type": headers["Content-Type"] || "Application/json",
-          Accept: headers["Accept"] || "application/json",
-          Authorization: TOKEN ? `Bearer ${TOKEN}` : "",
-        },
         data,
         ...others,
-        withCredentials: false
-      };
-
-      axios(config)
+      })
         .then((res) => {
           resolve(res.data);
         })

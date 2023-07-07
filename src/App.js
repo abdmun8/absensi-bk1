@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import { Route, Switch, useHistory } from "react-router-dom";
@@ -13,33 +13,22 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Loading from "./pages/Loading";
 import routes from "./routes";
-
-// const Login = React.lazy(() => import("./pages/Login"));
-// const Loading = React.lazy(() => import("./pages/Loading"));
+import _ from "lodash";
 
 function App() {
   const history = useHistory();
-  const loggedIn = useSelector((state) => state.loggedIn);
-  const user = useSelector((state) =>
-    JSON.parse(window.atob(state.currentUser))
-  );
-  console.log(user);
-  console.log(Object.entries(user).length);
-  if (Object.entries(user).length) {
-    history.push("/dashboard");
-  } else {
-    setTimeout(() => {
+  const user = useSelector((state) => state.currentUser);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
       history.push("/login");
-    }, 1000);
+    }, 500);
 
-    return <div>Loading.. </div>;
-  }
-  // if (!loggedIn) {
-  //   history.push("/login");
-  //   return;
-  // }
-
-  // return <div>hello</div>;\
+    if (!_.isEmpty(user)) {
+      clearTimeout(timeout);
+      history.push("/dashboard");
+    }
+  }, [user]);
 
   return (
     <Switch>
