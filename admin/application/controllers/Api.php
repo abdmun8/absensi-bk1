@@ -4,11 +4,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 use chriskacerguis\RestServer\RestController;
 use \Firebase\JWT\JWT;
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+// header("Access-Control-Allow-Origin: *");
+// header("Content-Type: application/json; charset=UTF-8");
+// header("Access-Control-Allow-Methods: POST");
+// header("Access-Control-Max-Age: 3600");
+// header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 class Api extends RestController
 {
@@ -54,7 +54,7 @@ class Api extends RestController
                 $tokenId = 'smkbk1';
                 $serverName = "abdmun8.xyz";
                 $issuedAt = time(); // issued at
-                $notBefore = time() + 10; //not before 
+                $notBefore = time(); //not before 
                 $expire = time() + (30 * 24 * 60 * 60); //expired
 
                 $token = [
@@ -71,24 +71,25 @@ class Api extends RestController
                     ]
                 ];
 
-                http_response_code(200);
-
                 $jwt = JWT::encode($token, $secretKey, 'HS256');
                 $response = array(
                     "message" => "Successful login.",
-                    "jwt" => $jwt,
-                    "name" => ucwords($name),
-                    "jk" => $jk,
-                    "nik" => $nik,
-                    "id" => $id,
-                    "x" => $this->secret_key
+                    "success" => true,
+                    "token" => $jwt,
+                    "user" => [
+                        "name" => ucwords($name),
+                        "jk" => $jk,
+                        "nik" => $nik,
+                        "id" => $id,
+                    ]
                 );
 
                 $this->response($response, RestController::HTTP_OK);
             } else {
-
-                http_response_code(401);
-                echo json_encode(array("message" => "Login failed.", "success" => false));
+                $this->response([
+                    "message" => "Username atau password salah",
+                    "success" => false
+                ], RestController::HTTP_UNAUTHORIZED);
             }
         }
     }
