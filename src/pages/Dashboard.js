@@ -30,23 +30,35 @@ export default function Dashboard() {
     }
   }, [user]);
 
-  if(!currentUser) return <div />
+  if (!currentUser) return <div />;
 
   return (
     <>
       <NavbarApp appBarData={{ isMenu: 0, title: "Dashboard" }} />
-      <Container className={classes.root}>
+      <div style={{ marginTop: 70 }} className="font-semibold text-2xl lg:px-4 px-3">
+        Hello
+      </div>
+      <div className="lg:p-4 p-3">
+        <div className="grid lg:grid-cols-2 lg:grid-rows-4 lg:gap-4 grid-cols-2 grid-rows-2 gap-3">
+          {listjadwal.map((item) => {
+            return (
+              <div key={item.id} className="bg-green-200 rounded-xl lg:p-4 p-2 text:sm lg:text-base">
+                <div className="capitalize">Hari: {item.hari}</div>
+                <div>{item.nama_matpel}</div>
+                <div>{item.durasi} Menit</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* <Container className={classes.root}>
+        {" "}
         <Icon className={classes.photo}>face</Icon>
         <Typography className={classes.nama}>dashboard</Typography>
         <Typography>Jadwal Hari ini</Typography>
-        {listjadwal.map((item) => {
-          return (
-            <div className="bg-red-500">
-              {_.upperCase(item.hari)} {item.nama_matpel} {item.durasi} Menit
-            </div>
-          );
-        })}
-      </Container>
+        
+      </Container> */}
     </>
   );
 }
@@ -127,7 +139,7 @@ const CheckinOut = ({ location }) => {
 const useStyles = makeStyles((theme) => ({
   root: {
     // color: "#dddddd"
-    marginTop: ".5rem",
+    marginTop: "64px",
     textAlign: "center",
   },
   title: {

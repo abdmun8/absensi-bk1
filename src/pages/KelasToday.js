@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Navbar from "../components/templates/NavbarApp";
 import Icon from "@material-ui/core/Icon";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 const useStyles = makeStyles((theme) => ({
@@ -66,7 +66,7 @@ export default function PaperSheet() {
   const token = useSelector((state) => state.currentUser.access_token);
   if (!checkedIn) {
     alert("Silahkan Absen Terlebih dahulu");
-    return <Redirect to="/" />;
+    // return <Redirect to="/" />;
   }
   const kelas = getKelas(token);
 

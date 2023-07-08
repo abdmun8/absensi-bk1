@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Routes, BrowserRouter, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // import Menu from "./components/templates/Menu";
@@ -15,39 +15,36 @@ import Loading from "./pages/Loading";
 import routes from "./routes";
 import _ from "lodash";
 
+const Template = () => {
+  return <div>Template</div>;
+};
+
 function App() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.currentUser);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      history.push("/login");
+      navigate("/login");
     }, 500);
 
     if (!_.isEmpty(user)) {
       clearTimeout(timeout);
-      history.push("/dashboard");
+      navigate("/dashboard");
     }
   }, [user]);
 
   return (
-    <Switch>
-      {/* {routes.map((route) => (
-        <Route
-          key={route.path}
-          exact={route.exact}
-          path={route.path}
-          component={route.component}
-        />
-      ))} */}
-      <Route exact path="/" component={Loading} />
+    <Routes>
+      <Route path="/" element={<Loading />} />
+      <Route path="/" element={<Template />} />
       {/* <Route exact path="/absensi-guru" component={AsensiGuru} />
       <Route exact path="/kelas" component={KelasToday} /> */}
-      <Route exact path="/login" component={Login} />
+      <Route path="/login" element={<Login />} />
       {/* <Route exact path="/reader-qr" component={ReaderQR} />
       <Route exact path="/absensi-siswa" component={AbsensiSiswa} />*/}
-      <Route exact path="/dashboard" component={Dashboard} />
-    </Switch>
+      <Route path="/dashboard/*" element={<Dashboard />} />
+    </Routes>
   );
 }
 

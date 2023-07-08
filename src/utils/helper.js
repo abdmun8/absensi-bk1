@@ -1,8 +1,8 @@
 import { menuInside, menuOutside } from "../constants/menus";
 
-export const getMenus = (inside = true) => {
-  if (inside) return menuInside;
-  return menuOutside;
+export const getMenus = (outside = true) => {
+  if (outside) return menuOutside;
+  return menuInside;
 };
 
 export const getMenusByDomain = (host) => {

@@ -18,10 +18,10 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { logout } from "../../utils/JWTAuth";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SwipeableTemporaryDrawer(props) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const classes = useStyles();
   const currentUser = useSelector((state) => state.currentUser);
   const menus = useSelector((state) => state.menus);
@@ -44,8 +44,6 @@ export default function SwipeableTemporaryDrawer(props) {
   };
 
   if (!currentUser) return <div />;
-
-  console.log({ menus });
 
   const sideList = (side) => (
     <div
@@ -112,7 +110,7 @@ title
                 dispatch({ type: "SET_CURRENT_USER", payload: null });
                 dispatch({ type: "TOGGLE_LOGIN", payload: false });
                 localStorage.removeItem("TOKEN");
-                history.replace("/login");
+                navigate("/login");
               }
             }}
             primary="Logout"

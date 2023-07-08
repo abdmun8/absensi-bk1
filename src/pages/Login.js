@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   CssBaseline,
@@ -13,7 +13,7 @@ import {
   Slide,
   Snackbar,
 } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import urls from "../utils/urls";
 // import
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
   const [isSubmit, setIsSubmit] = useState(false);
@@ -89,6 +89,8 @@ export default function Login() {
   const [state, setState] = useState({
     urlOutside: false,
   });
+
+  let menus = getMenus(state.urlOutside);
 
   const handleSnackbarClose = () => {
     setSnackBarState({ ...snackBarState, open: false });
@@ -122,7 +124,7 @@ export default function Login() {
         dispatch({ type: "SET_CURRENT_USER", payload: res.user });
         dispatch({ type: "SET_IS_LOGGEDIN", payload: true });
         localStorage.setItem("TOKEN", res.token);
-        history.push("/");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -133,9 +135,12 @@ export default function Login() {
 
   const handleChange = (name) => (event) => {
     setState({ ...state, [name]: event.target.checked });
-    let menus = getMenus(event.target.checked);
     dispatch({ type: "SET_MENU", payload: menus });
   };
+
+  useEffect(() => {
+    dispatch({ type: "SET_MENU", payload: menus });
+  },[menus])
 
   return (
     <Container component="main" maxWidth="xs">
