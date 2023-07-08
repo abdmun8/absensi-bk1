@@ -1,0 +1,25 @@
+name: Absensi BK Web & API CI
+
+on:
+  # pull_request:
+  #  branches: [ master ]
+  push: 
+    branches: [ development ]
+    
+
+jobs:
+  run_pull:
+    name: run pull
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/development'
+    
+    steps:
+    - name: install ssh keys
+      run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.DEV_SERVER_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.DEV_SERVER_HOST }} > ~/.ssh/known_hosts
+    - name: connect and pull
+      run: ssh ${{ secrets.DEV_SERVER_USER }}@${{ secrets.DEV_SERVER_HOST }} "cd ${{ secrets.WORK_DIR }} && git pull && exit"
+    - name: cleanup
+      run: rm -rf ~/.ssh
