@@ -20,6 +20,6 @@ jobs:
         echo "${{ secrets.DEV_SERVER_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.DEV_SERVER_HOST }} > ~/.ssh/known_hosts
     - name: connect and pull
-      run: ssh ${{ secrets.DEV_SERVER_USER }}@${{ secrets.DEV_SERVER_HOST }} "cd ${{ secrets.WORK_DIR }} && git pull && exit"
+      run: ssh ${{ secrets.DEV_SERVER_USER }}@${{ secrets.DEV_SERVER_HOST }} "cd ${{ secrets.DEV_SERVER_WORK_DIR }} && git pull && exit"
     - name: cleanup
       run: rm -rf ~/.ssh
